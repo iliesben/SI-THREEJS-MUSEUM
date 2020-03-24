@@ -6,21 +6,15 @@ export default class Hangar
     constructor()
     {
         this.group = new THREE.Group()
-        this.objects = []
+        this.gltf = '/models/gallery/scene.gltf'
         const gltfLoader = new GLTFLoader()
-
         gltfLoader.load(
-            '/models/scene/scene.gltf',
+            this.gltf,
             (_gltf) =>
             {
-                console.log(_gltf)
-                // for (let i = 0; i < _gltf.scene.children.length; i++) {
-                //     this.object = _gltf.scene.children[i]
-                //     this.objects = this.object
-                // }
-                // this.group.add(this.objects)
-                this.scene = _gltf.scene
-                this.group.add(this.scene)
+                this.object = _gltf.scene.children[0]
+                this.object.scale.set(0.1,0.1,0.1)
+                this.group.add(this.object)
             }
         )
     }

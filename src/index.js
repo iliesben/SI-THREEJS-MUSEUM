@@ -7,6 +7,7 @@ import Walls from './javascript/Walls.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
+import Hangar from './javascript/Hangar.js'
 
 class Museum {
     constructor(){
@@ -18,6 +19,7 @@ class Museum {
         this.cubes = new Cubes()
         this.car = new Car()
         this.street = new Street()
+        this.hangar = new Hangar()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -37,7 +39,7 @@ class Museum {
     }
 
     assets(){
-        this.models = [ this.walls.gltf, this.car.gltf];
+        this.models = [ this.walls.gltf, this.car.gltf, this.hangar.gltf];
         this.models.forEach( (model) => { this.options.assets.push(model)})
     }
 
@@ -55,6 +57,7 @@ class Museum {
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color( 0xa0a0a0 );
         this.scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
+        
 
         /**
          * Light
@@ -85,6 +88,9 @@ class Museum {
         this.car.group.scale.x = 0.12
         this.car.group.scale.y = 0.12
         this.car.group.scale.z = 0.12
+
+        this.scene.add(this.hangar.group)
+        this.hangar.group.position.set(-28,2.4,68)
         // this.walls.scale(2,2,2)
 
         /**
