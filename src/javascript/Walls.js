@@ -23,7 +23,10 @@ export default class Walls
             (_gltf2) =>
             {
                 this.object2 = _gltf2.scene.children[0]
-                // this.object2.position.set(0, 30, 30)
+                console.log(this.object2);
+                this.object2.position.set(0, 6, 30)
+                this.object2.scale.set(2,2,2)
+                this.object2.rotation.z = Math.PI
                 this.group.add(this.object2)
             }
         )
