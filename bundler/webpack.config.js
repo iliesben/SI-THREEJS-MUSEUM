@@ -89,14 +89,27 @@ module.exports = {
         ]
       },
       {
-        test: /\.(fbx|gltf)$/,
+        test: /\.(fbx)$/,
         use:
         [
           {
             loader : 'file-loader',
             options:
             {
-              outputPath: 'models/'
+              outputPath: 'models/rym'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(gltf)$/,
+        use:
+        [
+          {
+            loader : 'file-loader',
+            options:
+            {
+              outputPath: 'models/car'
             }
           }
         ]

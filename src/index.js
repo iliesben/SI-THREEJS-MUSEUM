@@ -94,19 +94,19 @@ class Museum {
         /**
          * Walls
          */
-    //     this.scene.add(this.walls.group)
-    //     this.scene.add(this.car.group)
-    //     this.car.group.position.set(-15,2.4,20)
-    //     this.car.group.scale.x = 0.12
-    //     this.car.group.scale.y = 0.12
-    //     this.car.group.scale.z = 0.12
-    //    // this.walls.scale(2,2,2)
+        this.scene.add(this.walls.group)
+        this.scene.add(this.car.group)
+        this.car.group.position.set(-15,2.4,20)
+        this.car.group.scale.x = 0.12
+        this.car.group.scale.y = 0.12
+        this.car.group.scale.z = 0.12
+       // this.walls.scale(2,2,2)
 
-    //     /**
-    //      * Expo
-    //      */
-    //     this.scene.add(this.expo.group)
-    //     this.expo.group.position.set(-28,2.4,68)
+        /**
+         * Expo
+         */
+        this.scene.add(this.expo.group)
+        this.expo.group.position.set(-28,2.4,68)
 
         /**
          * Street

@@ -38,7 +38,7 @@ export default class Rym
                 } )
                 this.player.object = object
 
-                this.player.object.scale.set(0.025, 0.025, 0.025)
+                this.player.object.scale.set(0.050, 0.050, 0.050)
                 this.player.object.position.set(40,2.5,2)
                 this.player.object.rotation.y = Math.PI
 
