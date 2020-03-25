@@ -1,15 +1,15 @@
 import './style/main.styl'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import Cubes from './javascript/Cubes.js'
 import Walls from './javascript/Walls.js'
-import Rym from './javascript/Rym.js'
+// import from './javascript/Rym.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
-// import Fred from './javascript/Fred.js'
 import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
-
+import Rym from './javascript/Rym.js'
 
 
 class Museum {
@@ -19,11 +19,11 @@ class Museum {
         this.renderer
         this.clock = new THREE.Clock();
         this.street = new Street()
-        this.rym = new Rym()
         this.walls = new Walls()
-        // this.cubes = new Cubes()
+        this.cubes = new Cubes()
         this.car = new Car()
         this.street = new Street()
+        this.rym = new Rym()
         this.expo = new Expo()
 
         this.container = document.createElement( 'div' );
@@ -92,19 +92,19 @@ class Museum {
         /**
          * Walls
          */
-        this.scene.add(this.walls.group)
-        this.scene.add(this.car.group)
-        this.car.group.position.set(-15,2.4,20)
-        this.car.group.scale.x = 0.12
-        this.car.group.scale.y = 0.12
-        this.car.group.scale.z = 0.12
-       // this.walls.scale(2,2,2)
+    //     this.scene.add(this.walls.group)
+    //     this.scene.add(this.car.group)
+    //     this.car.group.position.set(-15,2.4,20)
+    //     this.car.group.scale.x = 0.12
+    //     this.car.group.scale.y = 0.12
+    //     this.car.group.scale.z = 0.12
+    //    // this.walls.scale(2,2,2)
 
-        /**
-         * Expo
-         */
-        this.scene.add(this.expo.group)
-        this.expo.group.position.set(-28,2.4,68)
+    //     /**
+    //      * Expo
+    //      */
+    //     this.scene.add(this.expo.group)
+    //     this.expo.group.position.set(-28,2.4,68)
 
         /**
          * Street
@@ -114,15 +114,13 @@ class Museum {
         /**
          * Sky
          */
-       // this.scene.add(this.sky.group)
+       this.scene.add(this.cubes.group)
 
 
         /**
          * Rym
          */
         this.scene.add(this.rym.group)
-
-
 
         /**
          * Renderer
@@ -141,6 +139,8 @@ class Museum {
         this.cameraControls.enableDamping = true
 
         window.addEventListener( 'resize', () => { this.onWindowResize(); }, false );
+
+
     }
 
     /**
@@ -154,7 +154,6 @@ class Museum {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
     }
 
-
     /**
      * Loop
      */
@@ -164,6 +163,11 @@ class Museum {
         window.requestAnimationFrame( () => this.loop()  )
 
         if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
+
+		if (this.rym.player.move!=undefined){
+			if (this.rym.player.move.forward>0) this.rym.player.object.translateZ(dt*10);
+			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
+		}
 
         // Render
         this.renderer.render( this.scene, this.camera );

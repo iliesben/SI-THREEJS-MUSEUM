@@ -4,6 +4,7 @@ import rymWalk from '../models/rym/girlWalking.fbx';
 import rymLookAround from '../models/rym/grilLookAround.fbx'
 import rymRunning from '../models/rym/girlRunning.fbx';
 
+
 export default class Rym
 {
     constructor()
@@ -47,7 +48,27 @@ export default class Rym
                 this.group.add(this.player.object)
             }
         )
+        this.control = new Control({
+            onMove: this.playerControl,
+            player: this
+        })
     }
+
+    playerControl(forward, turn){
+
+		if (forward>0){
+            if (this.player.action!='walk') this.action = 'walk'
+		}else{
+            if (this.player.action === 'walk') this.action = rymLookAround
+            console.log(this.player.action);
+		}
+		if (forward==0 && turn==0){
+			delete this.player.move;
+		}else{
+			this.player.move = { forward, turn };
+		}
+    }
+
     loadNextAnim(fBXLoader){
         let anim = this.animations.pop()
 
@@ -61,9 +82,9 @@ export default class Rym
 			}
 		})
     }
+
 	set action(name){
         const anim = this.player[name];
-        console.log(anim);
 
 		const action = this.player.mixer.clipAction( anim,  this.player.root );
         action.time = 0;
@@ -72,6 +93,49 @@ export default class Rym
 		this.player.action = name;
 
 		action.fadeIn(0.5);
+        console.log(this.player.action);
 		action.play();
     }
+
 }
+
+
+
+class Control{
+	constructor(options){
+
+		this.onMove = options.onMove;
+        this.player = options.player;
+        this.directionZ = 0
+        this.directionX = 0
+
+        document.addEventListener('keydown', (_event) => { this.move(_event); });
+        document.addEventListener('keyup', (_event) => { this.stop(_event); });
+	}
+
+	move(_event){
+
+        if (_event.code === 'KeyW') this.directionZ = 1
+        if (_event.code === 'KeyS') this.directionZ = -1
+        if (_event.code === 'KeyA') this.directionX = 1
+        if (_event.code === 'KeyD') this.directionX = -1
+
+		const forward = this.directionZ
+        const turn = this.directionX
+
+		if (this.onMove!=undefined) this.onMove.call(this.player, forward, turn);
+	}
+
+	stop(_event){
+        // console.log(_event);
+        if (_event.code === 'KeyW' || _event.code === 'KeyS') this.directionZ = 0
+        if (_event.code === 'KeyA' || _event.code === 'KeyD') this.directionX = 0
+
+        const forward = this.directionZ
+		const turn = this.directionX
+
+		this.onMove.call(this.player, forward, turn);
+
+	}
+}
+
