@@ -3,9 +3,10 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Cubes from './javascript/Cubes.js'
 import Walls from './javascript/Walls.js'
-import James from './javascript/James.js'
+import Rym from './javascript/Rym.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
+// import Fred from './javascript/Fred.js'
 import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 
@@ -20,9 +21,9 @@ class Museum {
         // this.walls = new Walls()
         // this.cubes = new Cubes()
         // this.car = new Car()
-        // this.street = new Street()
+        this.street = new Street()
         // this.expo = new Expo()
-        this.james = new James()
+        this.rym = new Rym()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -44,7 +45,7 @@ class Museum {
 
     assets(){
 
-        this.models = [ this.james.person];
+        this.models = [ this.rym.person];
         this.models.forEach( (model) => { this.options.assets.push(model)})
     }
 
@@ -57,7 +58,7 @@ class Museum {
         this.camera.position.set(40, 8.68 , -0.3)
         this.camera.rotation.set(-3, 0, -3)
         this.camera.quaternion.set(0.0015550270263517871, 0.9961558075203143,0.0856999038597486)
-        // this.camera.lookAt(this.james.object.position)
+        // this.camera.lookAt(this.fred.object.position)
         /**
          * Scene
          */
@@ -103,10 +104,10 @@ class Museum {
         // this.expo.group.position.set(-28,2.4,68)
 
 
-        // /**
-        //  * Street
-        //  */
-        // this.scene.add(this.street.group)
+        /**
+         * Street
+         */
+        this.scene.add(this.street.group)
 
         /**
          * Sky
@@ -114,9 +115,15 @@ class Museum {
         // this.scene.add(this.sky.group)
 
         /**
-         * James
+         * Rym
          */
-        this.scene.add(this.james.group)
+        this.scene.add(this.rym.group)
+
+        // setTimeout(() =>
+        // {
+        // this.fred.run()
+        // console.log('2');
+        // },9000)
 
 
         /**
@@ -158,7 +165,7 @@ class Museum {
         const dt = this.clock.getDelta();
         window.requestAnimationFrame( () => this.loop()  )
 
-        if (this.james.mixer!=undefined) this.james.mixer.update(dt);
+        if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
 
         // Render
         this.renderer.render( this.scene, this.camera );

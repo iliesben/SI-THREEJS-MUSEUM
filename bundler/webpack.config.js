@@ -89,7 +89,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.fbx$/,
+        test: /\.(fbx|gltf)$/,
         use:
         [
           {
