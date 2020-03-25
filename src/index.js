@@ -83,40 +83,42 @@ class Museum {
 		directionalLight.shadow.camera.bottom = -100;
 		directionalLight.shadow.camera.left = -120;
 		directionalLight.shadow.camera.right = 120;
-		// this.scene.add( directionalLight );
+		this.scene.add( directionalLight );
 
-        // /**
-        //  * Walls
-        //  */
-        // this.scene.add(this.walls.group)
-        // this.scene.add(this.car.group)
-        // this.car.group.position.set(-15,2.4,20)
-        // this.car.group.scale.x = 0.12
-        // this.car.group.scale.y = 0.12
-        // this.car.group.scale.z = 0.12
-        // // this.walls.scale(2,2,2)
+        /**
+         * Walls
+         */
+        this.scene.add(this.walls.group)
+        this.scene.add(this.car.group)
+        this.car.group.position.set(-15,2.4,20)
+        this.car.group.scale.x = 0.12
+        this.car.group.scale.y = 0.12
+        this.car.group.scale.z = 0.12
+        this.walls.scale(2,2,2)
 
-        // /**
-        //  * Expo
-        //  */
-        // this.scene.add(this.expo.group)
-        // this.expo.group.position.set(-28,2.4,68)
+        /**
+         * Expo
+         */
+        this.scene.add(this.expo.group)
+        this.expo.group.position.set(-28,2.4,68)
 
 
-        // /**
-        //  * Street
-        //  */
-        // this.scene.add(this.street.group)
+        /**
+         * Street
+         */
+        this.scene.add(this.street.group)
 
         /**
          * Sky
          */
-        // this.scene.add(this.sky.group)
+        this.scene.add(this.sky.group)
 
+        
         /**
          * James
          */
-        this.scene.add(this.james.group)
+        //this.scene.add(this.james.group)
+        
 
 
         /**
