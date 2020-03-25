@@ -9,17 +9,19 @@ import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 
+
+
 class Museum {
     constructor(){
         this.camera
 		this.scene
         this.renderer
         this.clock = new THREE.Clock();
-        this.walls = new Walls()
-        this.cubes = new Cubes()
-        this.car = new Car()
-        this.street = new Street()
-        this.expo = new Expo()
+        // this.walls = new Walls()
+        // this.cubes = new Cubes()
+        // this.car = new Car()
+        // this.street = new Street()
+        // this.expo = new Expo()
         this.james = new James()
 
         this.container = document.createElement( 'div' );
@@ -32,7 +34,7 @@ class Museum {
 			oncomplete: () => {
                 this.init();
                 this.loop()
-                this.action()
+                // this.action()
 			}
         }
 
@@ -41,7 +43,8 @@ class Museum {
     }
 
     assets(){
-        this.models = [ this.walls.gltf, this.car.gltf, this.walls.gltf2, this.james.fbx];
+
+        this.models = [ this.james.person];
         this.models.forEach( (model) => { this.options.assets.push(model)})
     }
 
@@ -82,28 +85,28 @@ class Museum {
 		directionalLight.shadow.camera.right = 120;
 		// this.scene.add( directionalLight );
 
-        /**
-         * Walls
-         */
-        this.scene.add(this.walls.group)
-        this.scene.add(this.car.group)
-        this.car.group.position.set(-15,2.4,20)
-        this.car.group.scale.x = 0.12
-        this.car.group.scale.y = 0.12
-        this.car.group.scale.z = 0.12
-        // this.walls.scale(2,2,2)
+        // /**
+        //  * Walls
+        //  */
+        // this.scene.add(this.walls.group)
+        // this.scene.add(this.car.group)
+        // this.car.group.position.set(-15,2.4,20)
+        // this.car.group.scale.x = 0.12
+        // this.car.group.scale.y = 0.12
+        // this.car.group.scale.z = 0.12
+        // // this.walls.scale(2,2,2)
 
-        /**
-         * Expo
-         */
-        this.scene.add(this.expo.group)
-        this.expo.group.position.set(-28,2.4,68)
+        // /**
+        //  * Expo
+        //  */
+        // this.scene.add(this.expo.group)
+        // this.expo.group.position.set(-28,2.4,68)
 
 
-        /**
-         * Street
-         */
-        this.scene.add(this.street.group)
+        // /**
+        //  * Street
+        //  */
+        // this.scene.add(this.street.group)
 
         /**
          * Sky
@@ -133,16 +136,6 @@ class Museum {
         this.cameraControls.enableDamping = true
 
         window.addEventListener( 'resize', () => { this.onWindowResize(); }, false );
-    }
-
-    action(){
-
-    const action = this.james.mixer.clipAction( this.james.graffiti,  this.james.root );
-    action.time = 1.7;
-    action.loop = THREE.LoopOnce;
-    action.fadeIn(1);
-    setTimeout(() => action.play(),5000)
-
     }
 
     /**
