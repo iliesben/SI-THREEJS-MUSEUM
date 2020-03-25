@@ -18,12 +18,13 @@ class Museum {
 		this.scene
         this.renderer
         this.clock = new THREE.Clock();
-        // this.walls = new Walls()
-        // this.cubes = new Cubes()
-        // this.car = new Car()
         this.street = new Street()
-        // this.expo = new Expo()
         this.rym = new Rym()
+        this.walls = new Walls()
+        // this.cubes = new Cubes()
+        this.car = new Car()
+        this.street = new Street()
+        this.expo = new Expo()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -44,9 +45,10 @@ class Museum {
     }
 
     assets(){
+       // this.models = [ this.james.person];
+       this.models = [ this.rym.person, this.walls.gltf, this.car.gltf, this.walls.gltf2];
+       this.models.forEach( (model) => { this.options.assets.push(model)})
 
-        this.models = [ this.rym.person];
-        this.models.forEach( (model) => { this.options.assets.push(model)})
     }
 
     init(){
@@ -84,25 +86,25 @@ class Museum {
 		directionalLight.shadow.camera.bottom = -100;
 		directionalLight.shadow.camera.left = -120;
 		directionalLight.shadow.camera.right = 120;
-		// this.scene.add( directionalLight );
 
-        // /**
-        //  * Walls
-        //  */
-        // this.scene.add(this.walls.group)
-        // this.scene.add(this.car.group)
-        // this.car.group.position.set(-15,2.4,20)
-        // this.car.group.scale.x = 0.12
-        // this.car.group.scale.y = 0.12
-        // this.car.group.scale.z = 0.12
-        // // this.walls.scale(2,2,2)
+		this.scene.add( directionalLight );
 
-        // /**
-        //  * Expo
-        //  */
-        // this.scene.add(this.expo.group)
-        // this.expo.group.position.set(-28,2.4,68)
+        /**
+         * Walls
+         */
+        this.scene.add(this.walls.group)
+        this.scene.add(this.car.group)
+        this.car.group.position.set(-15,2.4,20)
+        this.car.group.scale.x = 0.12
+        this.car.group.scale.y = 0.12
+        this.car.group.scale.z = 0.12
+       // this.walls.scale(2,2,2)
 
+        /**
+         * Expo
+         */
+        this.scene.add(this.expo.group)
+        this.expo.group.position.set(-28,2.4,68)
 
         /**
          * Street
@@ -112,18 +114,14 @@ class Museum {
         /**
          * Sky
          */
-        // this.scene.add(this.sky.group)
+       // this.scene.add(this.sky.group)
+
 
         /**
          * Rym
          */
         this.scene.add(this.rym.group)
 
-        // setTimeout(() =>
-        // {
-        // this.fred.run()
-        // console.log('2');
-        // },9000)
 
 
         /**
