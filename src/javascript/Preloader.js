@@ -69,7 +69,7 @@ export default class Preloader{
 		function onprogress(delta){
             const progress = delta;
             loader.progressPourcentage.textContent = `${Math.floor(progress*100)} %`
-            loader.progressLine.style.transform = `scale(${Math.floor(progress*2)})`;
+            loader.progressLine.style.transform = `scale(${Math.floor(progress)})`;
 		}
 	}
 

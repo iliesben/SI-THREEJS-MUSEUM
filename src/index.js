@@ -18,7 +18,6 @@ class Museum {
         this.walls = new Walls()
         this.cubes = new Cubes()
         this.car = new Car()
-        this.sky = new Sky()
         this.street = new Street()
         this.expo = new Expo()
         this.james = new James()
