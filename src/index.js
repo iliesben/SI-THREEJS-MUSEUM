@@ -9,6 +9,7 @@ import Preloader from './javascript/Preloader.js'
 // import Fred from './javascript/Fred.js'
 import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
+import Iwalls from './javascript/Iwalls.js'
 
 
 
@@ -25,6 +26,7 @@ class Museum {
         this.car = new Car()
         this.street = new Street()
         this.expo = new Expo()
+        this.iwalls = new Iwalls()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -110,6 +112,10 @@ class Museum {
          * Street
          */
         this.scene.add(this.street.group)
+        /**
+         * Iwalls
+         */
+        this.scene.add(this.iwalls.group)
 
         /**
          * Sky
