@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Cubes from './javascript/Cubes.js'
 import Walls from './javascript/Walls.js'
-import James from './javascript/James.js'
+//import James from './javascript/James.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
@@ -17,12 +17,12 @@ class Museum {
 		this.scene
         this.renderer
         this.clock = new THREE.Clock();
-        // this.walls = new Walls()
-        // this.cubes = new Cubes()
-        // this.car = new Car()
-        // this.street = new Street()
-        // this.expo = new Expo()
-        this.james = new James()
+        this.walls = new Walls()
+        this.cubes = new Cubes()
+        this.car = new Car()
+        this.street = new Street()
+        this.expo = new Expo()
+        //this.james = new James()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -44,8 +44,11 @@ class Museum {
 
     assets(){
 
-        this.models = [ this.james.person];
-        this.models.forEach( (model) => { this.options.assets.push(model)})
+       // this.models = [ this.james.person];
+       this.models = [ this.walls.gltf, this.car.gltf, this.walls.gltf2];
+       this.models.forEach( (model) => { this.options.assets.push(model)})
+        
+        
     }
 
     init(){
@@ -94,7 +97,7 @@ class Museum {
         this.car.group.scale.x = 0.12
         this.car.group.scale.y = 0.12
         this.car.group.scale.z = 0.12
-        this.walls.scale(2,2,2)
+       // this.walls.scale(2,2,2)
 
         /**
          * Expo
@@ -111,7 +114,7 @@ class Museum {
         /**
          * Sky
          */
-        this.scene.add(this.sky.group)
+       // this.scene.add(this.sky.group)
 
         
         /**
@@ -160,7 +163,7 @@ class Museum {
         const dt = this.clock.getDelta();
         window.requestAnimationFrame( () => this.loop()  )
 
-        if (this.james.mixer!=undefined) this.james.mixer.update(dt);
+        //if (this.james.mixer!=undefined) this.james.mixer.update(dt);
 
         // Render
         this.renderer.render( this.scene, this.camera );
