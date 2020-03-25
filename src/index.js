@@ -3,11 +3,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Cubes from './javascript/Cubes.js'
 import Walls from './javascript/Walls.js'
-// import James from './javascript/James.js'
+import James from './javascript/James.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
-import Hangar from './javascript/Hangar.js'
+import Expo from './javascript/Expo.js'
 
 class Museum {
     constructor(){
@@ -18,8 +18,10 @@ class Museum {
         this.walls = new Walls()
         this.cubes = new Cubes()
         this.car = new Car()
+        this.sky = new Sky()
         this.street = new Street()
-        this.hangar = new Hangar()
+        this.expo = new Expo()
+        this.james = new James()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -31,15 +33,16 @@ class Museum {
 			oncomplete: () => {
                 this.init();
                 this.loop()
+                this.action()
 			}
         }
 
         this.assets()
-		const preloader = new Preloader(this.options);
+        const preloader = new Preloader(this.options);
     }
 
     assets(){
-        this.models = [ this.walls.gltf, this.car.gltf, this.hangar.gltf];
+        this.models = [ this.walls.gltf, this.car.gltf, this.walls.gltf2, this.james.fbx];
         this.models.forEach( (model) => { this.options.assets.push(model)})
     }
 
@@ -49,15 +52,16 @@ class Museum {
          * Camera
          */
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
-        this.camera.position.set(35, 10 , 10)
-
+        this.camera.position.set(40, 8.68 , -0.3)
+        this.camera.rotation.set(-3, 0, -3)
+        this.camera.quaternion.set(0.0015550270263517871, 0.9961558075203143,0.0856999038597486)
+        // this.camera.lookAt(this.james.object.position)
         /**
          * Scene
          */
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color( 0xa0a0a0 );
         this.scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
-        
 
         /**
          * Light
@@ -84,19 +88,33 @@ class Museum {
          */
         this.scene.add(this.walls.group)
         this.scene.add(this.car.group)
-        this.car.group.position.set(-15,2.4,25)
+        this.car.group.position.set(-15,2.4,20)
         this.car.group.scale.x = 0.12
         this.car.group.scale.y = 0.12
         this.car.group.scale.z = 0.12
-
-        this.scene.add(this.hangar.group)
-        this.hangar.group.position.set(-28,2.4,68)
         // this.walls.scale(2,2,2)
+
+        /**
+         * Expo
+         */
+        this.scene.add(this.expo.group)
+        this.expo.group.position.set(-28,2.4,68)
+
 
         /**
          * Street
          */
         this.scene.add(this.street.group)
+
+        /**
+         * Sky
+         */
+        // this.scene.add(this.sky.group)
+
+        /**
+         * James
+         */
+        this.scene.add(this.james.group)
 
 
         /**
@@ -115,8 +133,19 @@ class Museum {
         this.cameraControls.zoomSpeed = 0.3
         this.cameraControls.enableDamping = true
 
-        window.addEventListener( 'resize', () => { play.onWindowResize(); }, false );
+        window.addEventListener( 'resize', () => { this.onWindowResize(); }, false );
     }
+
+    action(){
+
+    const action = this.james.mixer.clipAction( this.james.graffiti,  this.james.root );
+    action.time = 1.7;
+    action.loop = THREE.LoopOnce;
+    action.fadeIn(1);
+    setTimeout(() => action.play(),5000)
+
+    }
+
     /**
      * Resize
      */
@@ -128,6 +157,7 @@ class Museum {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
     }
 
+
     /**
      * Loop
      */
@@ -136,7 +166,7 @@ class Museum {
         const dt = this.clock.getDelta();
         window.requestAnimationFrame( () => this.loop()  )
 
-        // if (james.mixer!=undefined) james.mixer.update(dt);
+        if (this.james.mixer!=undefined) this.james.mixer.update(dt);
 
         // Render
         this.renderer.render( this.scene, this.camera );
@@ -147,5 +177,4 @@ class Museum {
 
 document.addEventListener("DOMContentLoaded", function(){
     const museum = new Museum();
-    window.museum = museum
 });

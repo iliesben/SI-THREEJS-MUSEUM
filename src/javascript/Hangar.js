@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-export default class Hangar
+export default class Expo
 {
     constructor()
     {
         this.group = new THREE.Group()
-        this.gltf = '/models/gallery/scene.gltf'
+        this.gltf = '/models/expo/scene.gltf'
         const gltfLoader = new GLTFLoader()
         gltfLoader.load(
             this.gltf,
