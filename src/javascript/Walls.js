@@ -1,12 +1,14 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import walls1Source from '../models/walls/walls1.glb';
+import walls2Source from '../models/walls/walls2.glb';
 
 export default class Walls
 {
     constructor()
     {
         this.group = new THREE.Group()
-        this.gltf = '/models/walls2/scene.gltf'
+        this.gltf = walls1Source
         const gltfLoader = new GLTFLoader()
         gltfLoader.load(
             this.gltf,
@@ -17,7 +19,7 @@ export default class Walls
                 this.group.add(this.object)
             }
         )
-        this.gltf2 = '/models/walls3/scene.gltf'
+        this.gltf2 = walls2Source
         gltfLoader.load(
             this.gltf2,
             (_gltf2) =>

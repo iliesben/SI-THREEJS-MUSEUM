@@ -38,12 +38,13 @@ export default class Rym
                 } )
                 this.player.object = object
 
-                this.player.object.scale.set(0.050, 0.050, 0.050)
+                this.player.object.scale.set(0.035, 0.035, 0.035)
                 this.player.object.position.set(40,2.5,2)
                 this.player.object.rotation.y = Math.PI
 
                 this.player.walk = object.animations[0];
                 this.loadNextAnim(fBXLoader);
+                this.createCameras()
 
                 this.group.add(this.player.object)
             }
@@ -52,6 +53,38 @@ export default class Rym
             onMove: this.playerControl,
             player: this
         })
+    }
+
+       /**
+     * Camera
+     */
+
+    createCameras(){
+		const front = new THREE.Object3D();
+		front.position.set(112, 100, 200);
+		front.parent = this.player.object;
+		const back = new THREE.Object3D();
+		back.position.set(0, 100, -250);
+		back.parent = this.player.object;
+		const wide = new THREE.Object3D();
+		wide.position.set(178, 139, 465);
+		wide.parent = this.player.object;
+		const overhead = new THREE.Object3D();
+		overhead.position.set(0, 400, 0);
+		overhead.parent = this.player.object;
+		const collect = new THREE.Object3D();
+		collect.position.set(40, 82, 94);
+		collect.parent = this.player.object;
+		this.player.cameras = { front, back, wide, overhead, collect };
+		this.activeCamera = this.player.cameras.wide;
+		this.cameraFade = 0.1;
+		setTimeout( ()=> {
+			this.activeCamera = this.player.cameras.back;
+		}, 2000)
+	}
+
+    set activeCamera(object){
+		this.player.cameras.active = object;
     }
 
     playerControl(forward, turn){

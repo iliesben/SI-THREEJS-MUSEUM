@@ -27,6 +27,8 @@ class Museum {
         this.rym = new Rym()
         this.expo = new Expo()
         this.iwalls = new Iwalls()
+        this.cameraFade = 0.05;
+
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -97,9 +99,9 @@ class Museum {
         this.scene.add(this.walls.group)
         this.scene.add(this.car.group)
         this.car.group.position.set(-15,2.4,20)
-        this.car.group.scale.x = 0.12
-        this.car.group.scale.y = 0.12
-        this.car.group.scale.z = 0.12
+        this.car.group.scale.x = 0.2
+        this.car.group.scale.y = 0.2
+        this.car.group.scale.z = 0.2
        // this.walls.scale(2,2,2)
 
         /**
@@ -173,6 +175,13 @@ class Museum {
 		if (this.rym.player.move!=undefined){
 			if (this.rym.player.move.forward>0) this.rym.player.object.translateZ(dt*10);
 			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
+        }
+
+        if (this.rym.player.cameras!=undefined && this.rym.player.cameras.active!=undefined){
+			this.camera.position.lerp(this.rym.player.cameras.active.getWorldPosition(new THREE.Vector3()), this.cameraFade);
+			const pos = this.rym.player.object.position.clone();
+			pos.y += 60;
+			this.camera.lookAt(pos);
 		}
 
         // Render

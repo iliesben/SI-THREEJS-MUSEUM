@@ -76,40 +76,14 @@ module.exports = {
         ]
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        test: /\.(gltf|glb|fbx)$/,
         use:
         [
           {
             loader : 'file-loader',
             options:
             {
-              outputPath: 'fonts/'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(fbx)$/,
-        use:
-        [
-          {
-            loader : 'file-loader',
-            options:
-            {
-              outputPath: 'models/rym'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(gltf)$/,
-        use:
-        [
-          {
-            loader : 'file-loader',
-            options:
-            {
-              outputPath: 'models/car'
+              outputPath: 'models/'
             }
           }
         ]
