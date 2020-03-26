@@ -11,15 +11,17 @@ import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
 import walltest from './javascript/walltest.js'
+import Gallery from './javascript/Gallery.js'
 import Sky from './javascript/Sky.js'
 import Light from './javascript/Light.js'
 
 class Museum {
     constructor(){
+        this.gallery = new Gallery()
         this.camera
 		this.scene
         this.renderer
-        this.clock = new THREE.Clock();
+        this.clock = new THREE.Clock()
         this.street = new Street()
         //this.walls = new Walls()
         this.cubes = new Cubes()
@@ -179,6 +181,11 @@ class Museum {
          * Rym
          */
         this.scene.add(this.rym.group)
+
+        /**
+         * Gallery
+         */
+        this.scene.add(this.gallery.group)
 
         /**
          * Renderer
