@@ -87,6 +87,19 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(mp3)$/,
+        use:
+        [
+          {
+            loader : 'file-loader',
+            options:
+            {
+              outputPath: 'songs/'
+            }
+          }
+        ]
       }
     ]
   }

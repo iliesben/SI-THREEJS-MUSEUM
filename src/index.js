@@ -11,6 +11,7 @@ import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
 import walltest from './javascript/walltest.js'
+import Sky from './javascript/Sky.js'
 
 class Museum {
     constructor(){
@@ -26,6 +27,8 @@ class Museum {
         this.rym = new Rym()
         this.expo = new Expo()
         this.walltest = new walltest()
+
+        this.sky = new Sky()
         this.cameraFade = 0.05;
 
 
@@ -45,6 +48,10 @@ class Museum {
 
         this.assets()
         const preloader = new Preloader(this.options);
+
+
+
+
     }
 
     assets(){
@@ -157,14 +164,17 @@ class Museum {
         /**
          * Expo
          */
-        this.scene.add(this.expo.group)
-        this.expo.group.position.set(-28,2.4,68)
+        // this.scene.add(this.expo.group)
+        // this.expo.group.position.set(-28,2.4,68)
 
 
         /**
          * Street
          */
         this.scene.add(this.street.group)
+        this.scene.add(this.sky.group)
+        console.log(this.sky);
+        
 
 
          /**

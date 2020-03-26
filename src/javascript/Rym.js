@@ -3,22 +3,33 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import rymWalk from '../models/rym/girlWalking.fbx';
 import rymLookAround from '../models/rym/grilLookAround.fbx'
 import rymRunning from '../models/rym/girlRunning.fbx';
-// import Iwalls from './Iwalls.js'
-
+import sceneImage from '../images/scene/cinema.png'
+import Song from './Song.js'
 
 export default class Rym
 {
     constructor()
     {
         this.group = new THREE.Group()
-
+        this.song = new Song()
         this.player = { };
         this.person = rymWalk
         this.animations = [rymLookAround, rymRunning]
 
         this.init()
 
-        // document.querySelector(".camera-btn").addEventListener('click', () => console.log('dee') )
+        const $buttons = document.querySelector(".camera-btn")
+        $buttons.addEventListener('click', () =>
+        {
+            console.log('dee')
+            this.switchCamera()
+        })
+
+        this.image = new Image()
+        this.image.src = sceneImage
+
+        $buttons.appendChild(this.image)
+        this.image.classList.add('camera-btn')
 
     }
     init(){
@@ -41,8 +52,8 @@ export default class Rym
                 } )
                 this.player.object = object
 
-                this.player.object.scale.set(0.035, 0.035, 0.035)
-                this.player.object.position.set(-28,2.4,68)
+                this.player.object.scale.set(0.040, 0.040, 0.040)
+                this.player.object.position.set(-8,2.4,8)
                 this.player.object.rotation.y = Math.PI
 
                 this.player.walk = object.animations[0];
@@ -63,19 +74,51 @@ export default class Rym
      */
 
     createCameras(){
-        const back = new THREE.Object3D();
-        back.position.set(0, 250, -200);
-        back.parent = this.player.object;
-        this.player.cameras = { back };
-        this.activeCamera = this.player.cameras.wide;
+        const backView = new THREE.Object3D();
+        backView.position.set(0, 250, -200);
+        backView.parent = this.player.object;
+        const frontView = new THREE.Object3D();
+        frontView.position.set(0, 120, 220);
+        frontView.parent = this.player.object;
+		const longView = new THREE.Object3D();
+		longView.position.set(0, 250, -500);
+		longView.parent = this.player.object;
+		const rightView = new THREE.Object3D();
+		rightView.position.set(-200, 200, 100);
+		rightView.parent = this.player.object;
+		const leftView = new THREE.Object3D();
+		leftView.position.set(200, 200, 100);
+		leftView.parent = this.player.object;
+		this.player.cameras = { backView , frontView, longView, rightView, leftView };
+        this.activeCamera = this.player.cameras.longView;
         this.cameraFade = 1;
         setTimeout( () => {
-            this.activeCamera = this.player.cameras.back;
+            this.activeCamera = this.player.cameras.backView;
             this.cameraFade = 0.01;
             setTimeout(() => { this.cameraFade = 0.2; }, 1500);
         }, 2000)
 	}
 
+    /**
+     * change vue
+     */
+
+    switchCamera(fade=0.05){
+        console.log('fz');
+
+		const cams = Object.keys(this.player.cameras);
+		cams.splice(cams.indexOf('active'), 1);
+		let index;
+		for(let prop in this.player.cameras){
+			if (this.player.cameras[prop]==this.player.cameras.active){
+				index = cams.indexOf(prop) + 1;
+				if (index>=cams.length) index = 0;
+				this.player.cameras.active = this.player.cameras[cams[index]];
+				break;
+			}
+		}
+		this.cameraFade = fade;
+	}
     set activeCamera(object){
 		this.player.cameras.active = object;
     }
@@ -115,7 +158,10 @@ export default class Rym
 			}
         }
 
-		if (!blocked && this.player.move.forward > 0) this.player.object.translateZ(dt*10);
+		if (!blocked && this.player.move.forward > 0) {
+            this.song.play()
+            this.player.object.translateZ(dt*10);
+        }
 
 		//cast left
 		dir.set(-1,0,0);
