@@ -43,7 +43,7 @@ export default class Walltest
             const plane2 = new THREE.Mesh(planeGeometry2,planeMaterial2)
             plane2.rotation.x = Math.PI * 0 
             plane2.rotation.y = Math.PI * 1
-            plane2.position.set(15.5,12,32)
+            plane2.position.set(15.5,12,31)
             y -= 30
             this.group.add(plane2)
         }
@@ -59,7 +59,7 @@ export default class Walltest
             z -= 10
             this.group.add(box)
         }
-        const boxGeometry2  = new THREE.BoxGeometry( 10, 1, 3);
+        const boxGeometry2  = new THREE.BoxGeometry( 10, 1, 2);
         const boxMaterial2  = new THREE.MeshStandardMaterial({
         map: colorTexture3,
         displacementScale: 0.4
@@ -67,7 +67,7 @@ export default class Walltest
         let a = 120
         for (let i = 0; i < 24; i++) {
             const box2 = new THREE.Mesh(boxGeometry2,boxMaterial2)
-            box2.position.set(a + 15.5,2,31)
+            box2.position.set(a + 15.5,2,30)
             a -= 10
             this.group.add(box2)
         }
