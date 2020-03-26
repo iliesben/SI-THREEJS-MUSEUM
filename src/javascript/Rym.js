@@ -90,7 +90,7 @@ export default class Rym
 		leftView.position.set(200, 200, 100);
 		leftView.parent = this.player.object;
 		this.player.cameras = { backView , frontView, longView, rightView, leftView };
-        this.activeCamera = this.player.cameras.longView;
+        this.activeCamera = this.player.cameras.frontView;
         this.cameraFade = 1;
         setTimeout( () => {
             this.activeCamera = this.player.cameras.backView;

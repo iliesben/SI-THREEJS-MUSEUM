@@ -11,13 +11,13 @@ export default class Sky
     {
     this.group = new THREE.Group()
 
-    const skyGeo = new THREE.SphereGeometry(10, 0, 25)
+    const skyGeo = new THREE.SphereGeometry(500, 25, 25)
     const material = new THREE.MeshBasicMaterial({
         map: skyTexture,
         side: THREE.DoubleSide
     })
     this.sky = new THREE.Mesh(skyGeo, material);
-    this.sky.position.set(0,20,0)
+    this.sky.position.set(0,-15,15)
     this.group.add(this.sky)
 
     }

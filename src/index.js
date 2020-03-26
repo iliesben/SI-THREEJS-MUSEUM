@@ -12,6 +12,7 @@ import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
 import walltest from './javascript/walltest.js'
 import Sky from './javascript/Sky.js'
+import Light from './javascript/Light.js'
 
 class Museum {
     constructor(){
@@ -29,6 +30,7 @@ class Museum {
         this.walltest = new walltest()
 
         this.sky = new Sky()
+        this.light = new Light()
         this.cameraFade = 0.05;
 
 
@@ -76,28 +78,13 @@ class Museum {
          */
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color( 0xa0a0a0 );
-        this.scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
+        this.scene.fog = new THREE.Fog( 0xa0a0a0, 15, 5000 );
 
         /**
          * Light
          */
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-        this.scene.add(ambientLight)
-
-		const hemisphereLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-		hemisphereLight.position.set( 0, 200, 0 );
-		this.scene.add( hemisphereLight );
-
-		const directionalLight = new THREE.DirectionalLight( 0xffffff );
-		directionalLight.position.set( 0, 200, 100 );
-		directionalLight.castShadow = true;
-		directionalLight.shadow.camera.top = 180;
-		directionalLight.shadow.camera.bottom = -100;
-		directionalLight.shadow.camera.left = -120;
-		directionalLight.shadow.camera.right = 120;
-
-        this.scene.add( directionalLight );
+        this.scene.add(this.light.group)
 
          /**
          * Iwalls
@@ -174,7 +161,7 @@ class Museum {
         this.scene.add(this.street.group)
         this.scene.add(this.sky.group)
         console.log(this.sky);
-        
+
 
 
          /**
@@ -237,7 +224,7 @@ class Museum {
         if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
 
 		if (this.rym.player.move!=undefined){
-			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[3].children);
+			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[1].children);
 			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
 		}
 
