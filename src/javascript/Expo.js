@@ -22,9 +22,10 @@ export default class Expo
             this.gltf,
             (_gltf) =>
             {
-                this.object = _gltf.scene.children[0]
+                this.object = _gltf.scene.children[2]
                 this.object.scale.set(0.1,0.1,0.1)
                 this.group.add(this.object)
+                console.log(_gltf)
             }
         )
     }
