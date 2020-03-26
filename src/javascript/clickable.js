@@ -23,7 +23,7 @@ export default class Clickresult
         const plane = new THREE.Mesh(planeGeometry,planeMaterial)
         plane.position.z = 0
         plane.position.y = 10
-        plane.position.x = -8
+        plane.position.x = -50
         this.group.add(plane)
         
     }

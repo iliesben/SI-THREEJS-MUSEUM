@@ -23,7 +23,7 @@ export default class Clickme
         const clickbox = new THREE.Mesh(boxGeometry2,planeMaterial2)
         clickbox.position.z = 0
         clickbox.position.y = 10
-        clickbox.position.x = -15
+        clickbox.position.x = -60
         this.group.add(clickbox)
     }
 }
