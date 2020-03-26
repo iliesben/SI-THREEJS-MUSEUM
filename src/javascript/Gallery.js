@@ -197,7 +197,7 @@ class Gallery
         const drawMaterial = new THREE.MeshStandardMaterial({
             map: paintdraw
         })
-        const material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } )
+        /*const material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } )
         const drawMesh = new THREE.Mesh(drawGeometry, drawMaterial)
         const mesh = new THREE.Mesh(
           new THREE.PlaneGeometry(canvas.width, canvas.height),
