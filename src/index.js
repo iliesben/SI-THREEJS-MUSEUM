@@ -19,7 +19,7 @@ class Museum {
         this.renderer
         this.clock = new THREE.Clock();
         this.street = new Street()
-        this.walls = new Walls()
+        //this.walls = new Walls()
         this.cubes = new Cubes()
         this.car = new Car()
         this.street = new Street()
@@ -49,7 +49,7 @@ class Museum {
 
     assets(){
        // this.models = [ this.james.person];
-       this.models = [ this.rym.person, this.walls.gltf, this.car.gltf, this.walls.gltf2];
+       this.models = [ this.rym.person, /*this.walls.gltf*/, this.car.gltf, /*this.walls.gltf2*/];
        this.models.forEach( (model) => { this.options.assets.push(model)})
 
     }
