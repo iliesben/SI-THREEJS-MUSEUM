@@ -12,6 +12,7 @@ import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
 import walltest from './javascript/walltest.js'
 import Gallery from './javascript/Gallery.js'
+import Sky from './javascript/Sky.js'
 
 class Museum {
     constructor(){
@@ -21,13 +22,15 @@ class Museum {
         this.renderer
         this.clock = new THREE.Clock()
         this.street = new Street()
-        this.walls = new Walls()
+        //this.walls = new Walls()
         this.cubes = new Cubes()
         this.car = new Car()
         this.street = new Street()
         this.rym = new Rym()
         this.expo = new Expo()
         this.walltest = new walltest()
+
+        this.sky = new Sky()
         this.cameraFade = 0.05;
 
 
@@ -47,11 +50,15 @@ class Museum {
 
         this.assets()
         const preloader = new Preloader(this.options);
+
+
+
+
     }
 
     assets(){
        // this.models = [ this.james.person];
-       this.models = [ this.rym.person, this.walls.gltf, this.car.gltf, this.walls.gltf2];
+       this.models = [ this.rym.person, /*this.walls.gltf*/, this.car.gltf, /*this.walls.gltf2*/];
        this.models.forEach( (model) => { this.options.assets.push(model)})
 
     }
@@ -159,14 +166,17 @@ class Museum {
         /**
          * Expo
          */
-        this.scene.add(this.expo.group)
-        this.expo.group.position.set(-28,2.4,68)
+        // this.scene.add(this.expo.group)
+        // this.expo.group.position.set(-28,2.4,68)
 
 
         /**
          * Street
          */
         this.scene.add(this.street.group)
+        this.scene.add(this.sky.group)
+        console.log(this.sky);
+        
 
 
          /**
