@@ -229,7 +229,7 @@ class Museum {
         if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
 
 		if (this.rym.player.move!=undefined){
-			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[1].children);
+			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[0].children);
 			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
 		}
 
