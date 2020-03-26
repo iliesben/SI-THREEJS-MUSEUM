@@ -12,13 +12,17 @@ import walltest from './javascript/walltest.js'
 import Gallery from './javascript/Gallery.js'
 import Sky from './javascript/Sky.js'
 import Light from './javascript/Light.js'
-
+import Clickresult from './javascript/clickable.js'
+import { TweenLite, TimelineLite } from 'gsap/all'
+import Clickme from './javascript/clickmebox.js'
 class Museum {
     constructor(){
+        this.textureLoader = new THREE.TextureLoader()
         this.gallery = new Gallery()
         this.camera
 		this.scene
         this.renderer
+        this.click = new THREE.Group()
         this.clock = new THREE.Clock()
         this.street = new Street()
         this.wallsCollions = new WallsCollions()
@@ -28,10 +32,15 @@ class Museum {
         this.rym = new Rym()
         this.expo = new Expo()
         this.walltest = new walltest()
-
+        this.cursor = {}
         this.sky = new Sky()
         this.light = new Light()
         this.cameraFade = 0.05;
+        this.sizes = {}
+        this.raycaster = new THREE.Raycaster()
+        this.clickbox = new Clickme()
+        this.hoverbox = false
+        this.clickresult = new Clickresult()
 
 
         this.container = document.createElement( 'div' );
@@ -64,6 +73,23 @@ class Museum {
 
     init(){
 
+        /**
+         * Sizes
+         */
+        this.sizes.width = window.innerWidth
+        this.sizes.height = window.innerHeight
+
+        /**
+         * Cursor
+         */
+        this.cursor.x = 0
+        this.cursor.y = 0
+
+        window.addEventListener('mousemove', (_event) =>
+        {
+            this.cursor.x = _event.clientX / this.sizes.width - 0.5
+            this.cursor.y = _event.clientY / this.sizes.height - 0.5
+        })
         /**
          * Camera
          */
@@ -128,6 +154,12 @@ class Museum {
          * Gallery
          */
         this.scene.add(this.gallery.group)
+        /**
+         * click box
+         */
+        
+        this.scene.add(this.clickbox.group)
+
 
         /**
          * Renderer
@@ -147,6 +179,20 @@ class Museum {
         this.cameraControls.enableDamping = true
 
         window.addEventListener( 'resize', () => { this.onWindowResize(); }, false );
+
+        /**
+         * Click on duck
+         */
+        document.addEventListener('click', () =>
+        {
+            if(this.hoverbox)
+            {
+                console.log('click sur la box')
+                this.scene.add(this.clickresult.group)
+
+                
+            }
+        })
 
 
     }
@@ -173,7 +219,7 @@ class Museum {
         if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
 
 		if (this.rym.player.move!=undefined){
-			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[1].children);
+			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[0].children);
 			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
 		}
 
@@ -183,7 +229,19 @@ class Museum {
 			const pos = this.rym.player.object.position.clone();
 			pos.y += 6;
 			this.camera.lookAt(pos);
-		}
+        }
+        const raycasterCursor = new THREE.Vector2(this.cursor.x * 2, - this.cursor.y * 2)
+        this.raycaster.setFromCamera(raycasterCursor, this.camera)
+        const intersects = this.raycaster.intersectObject(this.clickbox.group, true)
+        if(intersects.length)
+        {
+            this.hoverbox = true
+        }
+        else
+        {
+            this.hoverbox = false
+        }
+
 
         // Render
         this.renderer.render( this.scene, this.camera );

@@ -31,10 +31,10 @@ export default class Street
         side : THREE.DoubleSide
         })
         let x = 120
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 8; i++) {
             const plane = new THREE.Mesh(planeGeometry,planeMaterial)
             plane.rotation.x = Math.PI * 0.5
-            plane.position.set(-x+60,2.5,15)
+            plane.position.set(-x,2.5,15)
             x -= 30
             this.group.add(plane)
         }
