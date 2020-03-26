@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 // import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
-import expoSource from '../models/expo/scene.glb';
+import expoSource from '../models/expo/expo.glb';
 
 
 export default class Expo
@@ -22,6 +22,8 @@ export default class Expo
             this.gltf,
             (_gltf) =>
             {
+                console.log(_gltf);
+                
                 this.object = _gltf.scene.children[0]
                 this.object.scale.set(0.1,0.1,0.1)
                 this.group.add(this.object)

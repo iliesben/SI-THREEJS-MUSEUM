@@ -53,7 +53,8 @@ export default class Rym
                 this.player.object = object
 
                 this.player.object.scale.set(0.040, 0.040, 0.040)
-                this.player.object.position.set(-8,2.4,8)
+                this.player.object.position.set(-55,2.4,14)
+
                 this.player.object.rotation.y = Math.PI
 
                 this.player.walk = object.animations[0];
@@ -127,6 +128,8 @@ export default class Rym
 
 		if (forward>0){
             if (this.player.action!='walk') this.action = 'walk'
+            // console.log(this.player.object.position);
+
 		}else{
             if (this.player.action === 'walk') this.action = rymLookAround
 		}
@@ -151,7 +154,7 @@ export default class Rym
             const intersect = raycaster.intersectObject(box);
 
 			if (intersect.length>0){
-				if (intersect[0].distance<5){
+				if (intersect[0].distance<3){
 					blocked = true;
 					break;
 				}
@@ -173,8 +176,8 @@ export default class Rym
 
             const intersect = raycaster.intersectObject(box);
 			if (intersect.length>0){
-				if (intersect[0].distance<5){
-					this.player.object.translateX(-(intersect[0].distance-5));
+				if (intersect[0].distance<3){
+					this.player.object.translateX(-(intersect[0].distance-3));
 					break;
 				}
 			}
@@ -189,8 +192,8 @@ export default class Rym
 
             const intersect = raycaster.intersectObject(box);
 			if (intersect.length>0){
-                if (intersect[0].distance<5){
-					this.player.object.translateX(intersect[0].distance-5);
+                if (intersect[0].distance<3){
+					this.player.object.translateX(intersect[0].distance-3);
 					break;
 				}
 			}

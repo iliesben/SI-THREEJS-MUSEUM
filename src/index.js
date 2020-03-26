@@ -2,7 +2,7 @@ import './style/main.styl'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Cubes from './javascript/Cubes.js'
-import Walls from './javascript/Walls.js'
+import WallsCollions from './javascript/WallsCollions.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
@@ -21,7 +21,7 @@ class Museum {
         this.renderer
         this.clock = new THREE.Clock()
         this.street = new Street()
-        //this.walls = new Walls()
+        this.wallsCollions = new WallsCollions()
         this.cubes = new Cubes()
         this.car = new Car()
         this.street = new Street()
@@ -51,9 +51,6 @@ class Museum {
         this.assets()
         const preloader = new Preloader(this.options);
 
-
-
-
     }
 
     assets(){
@@ -71,10 +68,7 @@ class Museum {
          * Camera
          */
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
-        // this.camera.position.set(40, 8.68 , -0.3)
-        // this.camera.rotation.set(-3, 0, -3)
-        // this.camera.quaternion.set(0.0015550270263517871, 0.9961558075203143,0.0856999038597486)
-        // this.camera.lookAt(this.fred.object.position)
+
         /**
          * Scene
          */
@@ -89,59 +83,11 @@ class Museum {
         this.scene.add(this.light.group)
 
          /**
-         * Iwalls
+         * WallsCollions
          */
 
-        this.env = new THREE.Group()
-        this.env.name = "Environment";
+        this.scene.add(this.wallsCollions.environment)
 
-        const planeGeometry  = new THREE.BoxGeometry( 30, 30 )
-        const planeMaterial  = new THREE.MeshBasicMaterial({
-            color: 0x248f24,
-            visible: false
-        })
-        let compteur = 0
-        for (let i = 0; i <= 3; i++) {
-            const  plane = new THREE.Mesh(planeGeometry,planeMaterial)
-            switch (compteur) {
-                case 0 :
-                    plane.position.set(-15,0,32)
-                    plane.scale.z = 4
-                    plane.scale.x = 4
-                break
-                case 1:
-                    plane.position.set(-75,2.5,15)
-                    plane.rotation.y = Math.PI * 0.5
-                break
-                case 2 :
-                    plane.position.set(45,2.5,15)
-                    plane.rotation.y = Math.PI * 0.5
-                break
-                case 3 :
-                    plane.position.set(-15,0,-2)
-                    plane.scale.z = 4
-                    plane.scale.x = 4
-                break
-
-            }
-            compteur++
-            this.env.add(plane)
-        }
-        const boxGeometry = new THREE.BoxGeometry( 13, 10, 7 )
-        const carBox = new THREE.Mesh(boxGeometry,planeMaterial)
-        carBox.position.set(-17,2.4,20)
-
-        this.env.add(carBox)
-        console.log(carBox);
-
-
-        this.environment = this.env;
-        this.scene.add(this.env)
-
-        /**
-         * Walls
-         */
-        // this.scene.add(this.walls.group)
 
         /**
          * Car
@@ -161,8 +107,6 @@ class Museum {
          * Street
          */
         this.scene.add(this.street.group)
-
-
 
 
          /**
