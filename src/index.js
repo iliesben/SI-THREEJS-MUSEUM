@@ -1,10 +1,8 @@
 import './style/main.styl'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import Cubes from './javascript/Cubes.js'
 import Walls from './javascript/Walls.js'
-// import from './javascript/Rym.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
@@ -60,7 +58,9 @@ class Museum {
 
     assets(){
        // this.models = [ this.james.person];
-       this.models = [ this.rym.person, /*this.walls.gltf*/, this.car.gltf, /*this.walls.gltf2*/];
+       this.models = [ this.rym.person,
+        this.car.gltf,
+        this.expo.gltf];
        this.models.forEach( (model) => { this.options.assets.push(model)})
 
     }
@@ -146,23 +146,22 @@ class Museum {
         /**
          * Car
          */
-        // this.scene.add(this.car.group)
-        // this.car.group.position.set(-15,2.4,20)
-        // this.car.group.scale.set(0.2, 0.2, 0.2)
+        this.scene.add(this.car.group)
+        this.car.group.position.set(-15,2.4,20)
+        this.car.group.scale.set(0.2, 0.2, 0.2)
 
         /**
          * Expo
          */
-        // this.scene.add(this.expo.group)
-        // this.expo.group.position.set(-28,2.4,68)
+        this.scene.add(this.expo.group)
+        this.expo.group.position.set(-28,2.4,68)
 
 
         /**
          * Street
          */
         this.scene.add(this.street.group)
-        this.scene.add(this.sky.group)
-        console.log(this.sky);
+
 
 
 
@@ -174,8 +173,7 @@ class Museum {
         /**
          * Sky
          */
-    //    this.scene.add(this.cubes.env)
-
+        this.scene.add(this.sky.group)
 
         /**
          * Rym

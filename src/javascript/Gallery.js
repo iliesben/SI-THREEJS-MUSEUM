@@ -10,7 +10,7 @@ import Invader4 from '../images/expo/Invader4.jpg'
 import draw from '../images/expo/draw.jpg'
 import cowboy from '../images/expo/cowboy.jpg'
 import poesia from '../images/expo/poesia.jpg'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js' // GLTF Import 
+
 
 const textureLoader = new THREE.TextureLoader()
 const paintOnWall = textureLoader.load(GraffityPaint)
@@ -44,12 +44,12 @@ class Gallery
         GallerieMesh.position.x = -45
 
 
-        
+
         this.group.add(GallerieMesh)
         GallerieMesh.scale.set(0.1, 0.1, 0.1)
- 
+
         /**
-         * Paint wall Banksy Cop / Monkey 
+         * Paint wall Banksy Cop / Monkey
          */
         ///cop
         const banksyGeometry = new THREE.BoxGeometry(85 ,120, 0.5)
@@ -65,7 +65,7 @@ class Gallery
 
         this.group.add(banksyMesh)
         banksyMesh.scale.set(0.1, 0.1, 0.1)
-        
+
         //monkey
         const monkeyGeometry = new THREE.BoxGeometry(85 ,120, 0.5)
         const monkeyMaterial = new THREE.MeshStandardMaterial({
@@ -99,7 +99,7 @@ class Gallery
         PortraitMesh.scale.set(0.1, 0.1, 0.1)
 
         ///invader
-        
+
         const InvaderGeometry = new THREE.BoxGeometry(10 ,10, 0.5)
         const InvaderMaterial = new THREE.MeshStandardMaterial({
             map: paintInvader
@@ -140,7 +140,7 @@ class Gallery
 
         this.group.add(Invader3Mesh)
         Invader3Mesh.scale.set(0.1, 0.1, 0.1)
-        
+
         //Invader 4
         const Invader4Geometry = new THREE.BoxGeometry(10 ,10, 0.5)
         const Invader4Material = new THREE.MeshStandardMaterial({
@@ -203,11 +203,11 @@ class Gallery
         drawMesh.scale.set(0.1, 0.1, 0.1)
 
         /**
-         * Imported/statue 
+         * Imported/statue
          */
-        
+
          /*    const gltfLoader = new GLTFLoader()
-      
+
             gltfLoader.load( './models/statue/scene.gltf',(_gltf) =>
             {
                 this.object = _gltf.scene.children[0]
