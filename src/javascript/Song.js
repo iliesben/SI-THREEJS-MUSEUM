@@ -1,4 +1,4 @@
-import footStepsSource from '../songs/footSteps.mp3'
+import footStepsSource from '../assets/footSteps.mp3'
 
 console.log(footStepsSource);
 

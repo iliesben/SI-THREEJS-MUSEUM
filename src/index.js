@@ -13,8 +13,11 @@ import Gallery from './javascript/Gallery.js'
 import Sky from './javascript/Sky.js'
 import Light from './javascript/Light.js'
 import Clickresult from './javascript/clickable.js'
+import Video from './javascript/Video.js'
 import { TweenLite, TimelineLite } from 'gsap/all'
 import Clickme from './javascript/clickmebox.js'
+
+
 class Museum {
     constructor(){
         this.textureLoader = new THREE.TextureLoader()
@@ -39,6 +42,7 @@ class Museum {
         this.sizes = {}
         this.raycaster = new THREE.Raycaster()
         this.clickbox = new Clickme()
+        this.video = new Video()
         this.hoverbox = false
         this.clickresult = new Clickresult()
 
@@ -118,9 +122,9 @@ class Museum {
         /**
          * Car
          */
-        this.scene.add(this.car.group)
-        this.car.group.position.set(-15,2.4,20)
-        this.car.group.scale.set(0.2, 0.2, 0.2)
+        // this.scene.add(this.car.group)
+        // this.car.group.position.set(-15,2.4,20)
+        // this.car.group.scale.set(0.2, 0.2, 0.2)
 
         /**
          * Expo
@@ -138,7 +142,7 @@ class Museum {
          /**
          * walltest
          */
-        this.scene.add(this.walltest.group)
+        // this.scene.add(this.walltest.group)
 
         /**
          * Sky
@@ -153,11 +157,17 @@ class Museum {
         /**
          * Gallery
          */
-        this.scene.add(this.gallery.group)
+        // this.scene.add(this.gallery.group)
+
+        /**
+         * Video
+         */
+        this.scene.add(this.video.group)
+
         /**
          * click box
          */
-        
+
         this.scene.add(this.clickbox.group)
 
 
@@ -190,7 +200,7 @@ class Museum {
                 console.log('click sur la box')
                 this.scene.add(this.clickresult.group)
 
-                
+
             }
         })
 
@@ -219,7 +229,7 @@ class Museum {
         if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
 
 		if (this.rym.player.move!=undefined){
-			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[0].children);
+			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[1].children);
 			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
 		}
 

@@ -88,15 +88,16 @@ module.exports = {
           }
         ]
       },
+      // Fichier audio et video
       {
-        test: /\.(mp3)$/,
+        test: /\.(mp3|mp4|ogg|webm)$/,
         use:
         [
           {
             loader : 'file-loader',
             options:
             {
-              outputPath: 'songs/'
+              outputPath: 'assets/'
             }
           }
         ]

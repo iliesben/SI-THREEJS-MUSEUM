@@ -53,8 +53,8 @@ export default class Rym
                 this.player.object = object
 
                 this.player.object.scale.set(0.040, 0.040, 0.040)
-                this.player.object.position.set(-55,2.4,14)
-
+                // this.player.object.position.set(-55,2.4,14)
+                this.player.object.position.set(-85,2.4,60)
                 this.player.object.rotation.y = Math.PI
 
                 this.player.walk = object.animations[0];
@@ -167,37 +167,37 @@ export default class Rym
         }
 
 		//cast left
-		dir.set(-1,0,0);
-		dir.applyMatrix4(this.player.object.matrix);
-		dir.normalize();
-		raycaster = new THREE.Raycaster(pos, dir);
+		// dir.set(-1,0,0);
+		// dir.applyMatrix4(this.player.object.matrix);
+		// dir.normalize();
+		// raycaster = new THREE.Raycaster(pos, dir);
 
-		for(let box of scene){
+		// for(let box of scene){
 
-            const intersect = raycaster.intersectObject(box);
-			if (intersect.length>0){
-				if (intersect[0].distance<3){
-					this.player.object.translateX(-(intersect[0].distance-3));
-					break;
-				}
-			}
-		}
-		//cast right
-		dir.set(1,0,0);
-		dir.applyMatrix4(this.player.object.matrix);
-		dir.normalize();
-		raycaster = new THREE.Raycaster(pos, dir);
+        //     const intersect = raycaster.intersectObject(box);
+		// 	if (intersect.length>0){
+		// 		if (intersect[0].distance<3){
+		// 			this.player.object.translateX(-(intersect[0].distance-3));
+		// 			break;
+		// 		}
+		// 	}
+		// }
+		// //cast right
+		// dir.set(1,0,0);
+		// dir.applyMatrix4(this.player.object.matrix);
+		// dir.normalize();
+		// raycaster = new THREE.Raycaster(pos, dir);
 
-		for(let box of scene){
+		// for(let box of scene){
 
-            const intersect = raycaster.intersectObject(box);
-			if (intersect.length>0){
-                if (intersect[0].distance<3){
-					this.player.object.translateX(intersect[0].distance-3);
-					break;
-				}
-			}
-		}
+        //     const intersect = raycaster.intersectObject(box);
+		// 	if (intersect.length>0){
+        //         if (intersect[0].distance<3){
+		// 			this.player.object.translateX(intersect[0].distance-3);
+		// 			break;
+		// 		}
+		// 	}
+		// }
     }
 
     loadNextAnim(fBXLoader){
