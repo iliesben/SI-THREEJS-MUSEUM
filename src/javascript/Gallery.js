@@ -24,6 +24,7 @@ const paintInvader4 = textureLoader.load(Invader4)
 const paintdraw = textureLoader.load(draw)
 const paintcowboy = textureLoader.load(cowboy)
 const paintpoesia = textureLoader.load(poesia)
+const cursor = { x: 0, y: 0 }
 
 class Gallery
 {
@@ -189,17 +190,25 @@ class Gallery
 
 
         // drawing Canvas 2D
-        const drawGeometry = new THREE.BoxGeometry(40 ,60, 3.5)
+        const canvas = document.createElement('canvas')
+        const context = canvas.getContext('2d')
+        const texture = new THREE.Texture(canvas)
+        const drawGeometry = new THREE.BoxGeometry(40 ,60, 0.7)
         const drawMaterial = new THREE.MeshStandardMaterial({
             map: paintdraw
         })
-
+        const material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } )
         const drawMesh = new THREE.Mesh(drawGeometry, drawMaterial)
+        const mesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(canvas.width, canvas.height),
+          material
+        )
         drawMesh.position.z = 74.3
         drawMesh.position.x = -45
         drawMesh.position.y = 7
 
         this.group.add(drawMesh)
+        this.group.add(mesh)
         drawMesh.scale.set(0.1, 0.1, 0.1)
 
         /**
