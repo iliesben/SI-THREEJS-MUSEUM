@@ -11,7 +11,7 @@ import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
 import Iwalls from './javascript/Iwalls.js'
-
+import walltest from './javascript/walltest.js'
 
 class Museum {
     constructor(){
@@ -27,6 +27,7 @@ class Museum {
         this.rym = new Rym()
         this.expo = new Expo()
         this.iwalls = new Iwalls()
+        this.walltest = new walltest()
         this.cameraFade = 0.05;
 
 
@@ -118,6 +119,11 @@ class Museum {
          * Iwalls
          */
         this.scene.add(this.iwalls.group)
+         /**
+         * walltest
+         */
+        this.scene.add(this.walltest.group)
+
 
         /**
          * Sky
