@@ -17,6 +17,9 @@ import Video from './javascript/Video.js'
 import { TweenLite, TimelineLite } from 'gsap/all'
 import Clickme from './javascript/clickmebox.js'
 import Clickmetwo from './javascript/clickmeboxtwo.js'
+import Song from './javascript/Song.js'
+import Canvas from './javascript/Canvas.js'
+
 class Museum {
     constructor(){
         this.textureLoader = new THREE.TextureLoader()
@@ -41,9 +44,12 @@ class Museum {
         this.sizes = {}
         this.raycaster = new THREE.Raycaster()
         this.clickbox = new Clickme()
+        this.songMuseum = new Song()
+        this.songStreet = new Song()
 
+        this.canvas = new Canvas()
         this.video = new Video()
-        this.clickbox2 = new Clickmetwo()
+        // this.clickbox2 = new Clickmetwo()
         this.hoverbox = false
         this.hoverbox2 = false
         this.clickresult = new Clickresult()
@@ -124,9 +130,9 @@ class Museum {
         /**
          * Car
          */
-        // this.scene.add(this.car.group)
-        // this.car.group.position.set(-15,2.4,20)
-        // this.car.group.scale.set(0.2, 0.2, 0.2)
+        this.scene.add(this.car.group)
+        this.car.group.position.set(-15,2.4,20)
+        this.car.group.scale.set(0.2, 0.2, 0.2)
 
         /**
          * Expo
@@ -144,7 +150,7 @@ class Museum {
          /**
          * walltest
          */
-        // this.scene.add(this.walltest.group)
+        this.scene.add(this.walltest.group)
 
         /**
          * Sky
@@ -159,7 +165,7 @@ class Museum {
         /**
          * Gallery
          */
-        // this.scene.add(this.gallery.group)
+        this.scene.add(this.gallery.group)
 
         /**
          * Video
@@ -167,12 +173,24 @@ class Museum {
         this.scene.add(this.video.group)
 
         /**
+         * Canvas
+         */
+
+        this.scene.add(this.canvas.group)
+        /**
          * click box
          */
 
         this.scene.add(this.clickbox.group)
-        this.scene.add(this.clickbox2.group)
+        // this.scene.add(this.clickbox2.group)
 
+        /**
+         * SongInit
+         */
+        const _sence = this.scene
+        const _camera = this.camera
+        this.songMuseum.speakerAudio(_sence, _camera, 'museum')
+        // this.songStreet.speakerAudio(_sence, _camera, 'street')
 
         /**
          * Renderer
@@ -207,9 +225,7 @@ class Museum {
             }
             if(this.hoverbox2)
             {
-                console.log('click sur la box pour le son')
-
-
+                this.video.soundPlay()
 
             }
         })
@@ -261,7 +277,7 @@ class Museum {
         {
             this.hoverbox = false
         }
-        const intersects2 = this.raycaster.intersectObject(this.clickbox2.group, true)
+        const intersects2 = this.raycaster.intersectObject(this.video.group, true)
         if(intersects2.length)
         {
             this.hoverbox2 = true

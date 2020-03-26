@@ -54,7 +54,7 @@ export default class Rym
 
                 this.player.object.scale.set(0.040, 0.040, 0.040)
                 // this.player.object.position.set(-55,2.4,14)
-                this.player.object.position.set(-85,2.4,60)
+                this.player.object.position.set(-64.5  , 2.5 , 33.5)
                 this.player.object.rotation.y = Math.PI
 
                 this.player.walk = object.animations[0];

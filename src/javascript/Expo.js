@@ -4,14 +4,12 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import expoSource from '../models/expo/expo.glb';
 
-
 export default class Expo
 {
     constructor()
     {
         this.group = new THREE.Group()
         this.gltf = expoSource
-
         // const dracoLoader = new DRACOLoader()
         // dracoLoader.setDecoderPath('/draco/')
 
@@ -29,5 +27,9 @@ export default class Expo
                 console.log(_gltf)
             }
         )
+
     }
+
+
+
 }
