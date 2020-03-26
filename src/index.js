@@ -15,6 +15,7 @@ import Light from './javascript/Light.js'
 import Clickresult from './javascript/clickable.js'
 import { TweenLite, TimelineLite } from 'gsap/all'
 import Clickme from './javascript/clickmebox.js'
+import Clickmetwo from './javascript/clickmeboxtwo.js'
 class Museum {
     constructor(){
         this.textureLoader = new THREE.TextureLoader()
@@ -39,7 +40,9 @@ class Museum {
         this.sizes = {}
         this.raycaster = new THREE.Raycaster()
         this.clickbox = new Clickme()
+        this.clickbox2 = new Clickmetwo()
         this.hoverbox = false
+        this.hoverbox2 = false
         this.clickresult = new Clickresult()
 
 
@@ -159,6 +162,7 @@ class Museum {
          */
         
         this.scene.add(this.clickbox.group)
+        this.scene.add(this.clickbox2.group)
 
 
         /**
@@ -189,6 +193,13 @@ class Museum {
             {
                 console.log('click sur la box')
                 this.scene.add(this.clickresult.group)
+
+                
+            }
+            if(this.hoverbox2)
+            {
+                console.log('click sur la box pour le son')
+                
 
                 
             }
@@ -241,6 +252,16 @@ class Museum {
         {
             this.hoverbox = false
         }
+        const intersects2 = this.raycaster.intersectObject(this.clickbox2.group, true)
+        if(intersects2.length)
+        {
+            this.hoverbox2 = true
+        }
+        else
+        {
+            this.hoverbox2 = false
+        }
+
 
 
         // Render
