@@ -3,6 +3,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import rymWalk from '../models/rym/girlWalking.fbx';
 import rymLookAround from '../models/rym/grilLookAround.fbx'
 import rymRunning from '../models/rym/girlRunning.fbx';
+// import Iwalls from './Iwalls.js'
 
 
 export default class Rym
@@ -16,6 +17,8 @@ export default class Rym
         this.animations = [rymLookAround, rymRunning]
 
         this.init()
+
+        // document.querySelector(".camera-btn").addEventListener('click', () => console.log('dee') )
 
     }
     init(){
@@ -39,7 +42,7 @@ export default class Rym
                 this.player.object = object
 
                 this.player.object.scale.set(0.035, 0.035, 0.035)
-                this.player.object.position.set(40,2.5,2)
+                this.player.object.position.set(-28,2.4,68)
                 this.player.object.rotation.y = Math.PI
 
                 this.player.walk = object.animations[0];
@@ -55,32 +58,22 @@ export default class Rym
         })
     }
 
-       /**
+    /**
      * Camera
      */
 
     createCameras(){
-		const front = new THREE.Object3D();
-		front.position.set(112, 100, 200);
-		front.parent = this.player.object;
-		const back = new THREE.Object3D();
-		back.position.set(0, 100, -250);
-		back.parent = this.player.object;
-		const wide = new THREE.Object3D();
-		wide.position.set(178, 139, 465);
-		wide.parent = this.player.object;
-		const overhead = new THREE.Object3D();
-		overhead.position.set(0, 400, 0);
-		overhead.parent = this.player.object;
-		const collect = new THREE.Object3D();
-		collect.position.set(40, 82, 94);
-		collect.parent = this.player.object;
-		this.player.cameras = { front, back, wide, overhead, collect };
-		this.activeCamera = this.player.cameras.wide;
-		this.cameraFade = 0.1;
-		setTimeout( ()=> {
-			this.activeCamera = this.player.cameras.back;
-		}, 2000)
+        const back = new THREE.Object3D();
+        back.position.set(0, 250, -200);
+        back.parent = this.player.object;
+        this.player.cameras = { back };
+        this.activeCamera = this.player.cameras.wide;
+        this.cameraFade = 1;
+        setTimeout( () => {
+            this.activeCamera = this.player.cameras.back;
+            this.cameraFade = 0.01;
+            setTimeout(() => { this.cameraFade = 0.2; }, 1500);
+        }, 2000)
 	}
 
     set activeCamera(object){
@@ -93,12 +86,68 @@ export default class Rym
             if (this.player.action!='walk') this.action = 'walk'
 		}else{
             if (this.player.action === 'walk') this.action = rymLookAround
-            console.log(this.player.action);
 		}
 		if (forward==0 && turn==0){
 			delete this.player.move;
 		}else{
 			this.player.move = { forward, turn };
+		}
+    }
+
+
+	movePlayer(dt, scene){
+		const pos = this.player.object.position.clone();
+        pos.y += 2;
+        var vector = new THREE.Vector3(); // create once and reuse it!
+		let dir = this.player.object.getWorldDirection(vector);
+		let raycaster = new THREE.Raycaster(pos, dir);
+        let blocked = false;
+
+
+		for(let box of scene){
+            const intersect = raycaster.intersectObject(box);
+
+			if (intersect.length>0){
+				if (intersect[0].distance<5){
+					blocked = true;
+					break;
+				}
+			}
+        }
+
+		if (!blocked && this.player.move.forward > 0) this.player.object.translateZ(dt*10);
+
+		//cast left
+		dir.set(-1,0,0);
+		dir.applyMatrix4(this.player.object.matrix);
+		dir.normalize();
+		raycaster = new THREE.Raycaster(pos, dir);
+
+		for(let box of scene){
+
+            const intersect = raycaster.intersectObject(box);
+			if (intersect.length>0){
+				if (intersect[0].distance<5){
+					this.player.object.translateX(-(intersect[0].distance-5));
+					break;
+				}
+			}
+		}
+		//cast right
+		dir.set(1,0,0);
+		dir.applyMatrix4(this.player.object.matrix);
+		dir.normalize();
+		raycaster = new THREE.Raycaster(pos, dir);
+
+		for(let box of scene){
+
+            const intersect = raycaster.intersectObject(box);
+			if (intersect.length>0){
+                if (intersect[0].distance<5){
+					this.player.object.translateX(intersect[0].distance-5);
+					break;
+				}
+			}
 		}
     }
 
@@ -126,7 +175,6 @@ export default class Rym
 		this.player.action = name;
 
 		action.fadeIn(0.5);
-        console.log(this.player.action);
 		action.play();
     }
 

@@ -10,7 +10,7 @@ import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
-import Iwalls from './javascript/Iwalls.js'
+// import Iwalls from './javascript/Iwalls.js'
 
 
 class Museum {
@@ -26,7 +26,7 @@ class Museum {
         this.street = new Street()
         this.rym = new Rym()
         this.expo = new Expo()
-        this.iwalls = new Iwalls()
+        // this.iwalls = new Iwalls()
         this.cameraFade = 0.05;
 
 
@@ -61,9 +61,9 @@ class Museum {
          * Camera
          */
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
-        this.camera.position.set(40, 8.68 , -0.3)
-        this.camera.rotation.set(-3, 0, -3)
-        this.camera.quaternion.set(0.0015550270263517871, 0.9961558075203143,0.0856999038597486)
+        // this.camera.position.set(40, 8.68 , -0.3)
+        // this.camera.rotation.set(-3, 0, -3)
+        // this.camera.quaternion.set(0.0015550270263517871, 0.9961558075203143,0.0856999038597486)
         // this.camera.lookAt(this.fred.object.position)
         /**
          * Scene
@@ -91,18 +91,69 @@ class Museum {
 		directionalLight.shadow.camera.left = -120;
 		directionalLight.shadow.camera.right = 120;
 
-		this.scene.add( directionalLight );
+        this.scene.add( directionalLight );
+
+         /**
+         * Iwalls
+         */
+
+        this.env = new THREE.Group()
+        this.env.name = "Environment";
+
+        const planeGeometry  = new THREE.BoxGeometry( 30, 30 )
+        const planeMaterial  = new THREE.MeshBasicMaterial({
+            color: 0x248f24,
+            visible: false
+        })
+        let compteur = 0
+        for (let i = 0; i <= 3; i++) {
+            const  plane = new THREE.Mesh(planeGeometry,planeMaterial)
+            switch (compteur) {
+                case 0 :
+                    plane.position.set(-15,0,32)
+                    plane.scale.z = 4
+                    plane.scale.x = 4
+                break
+                case 1:
+                    plane.position.set(-75,2.5,15)
+                    plane.rotation.y = Math.PI * 0.5
+                break
+                case 2 :
+                    plane.position.set(45,2.5,15)
+                    plane.rotation.y = Math.PI * 0.5
+                break
+                case 3 :
+                    plane.position.set(-15,0,-2)
+                    plane.scale.z = 4
+                    plane.scale.x = 4
+                break
+
+            }
+            compteur++
+            this.env.add(plane)
+        }
+        const boxGeometry = new THREE.BoxGeometry( 13, 10, 7 )
+        const carBox = new THREE.Mesh(boxGeometry,planeMaterial)
+        carBox.position.set(-17,2.4,20)
+
+        this.env.add(carBox)
+        console.log(carBox);
+
+
+        this.environment = this.env;
+        this.scene.add(this.env)
 
         /**
          * Walls
          */
-        this.scene.add(this.walls.group)
-        this.scene.add(this.car.group)
-        this.car.group.position.set(-15,2.4,20)
-        this.car.group.scale.x = 0.2
-        this.car.group.scale.y = 0.2
-        this.car.group.scale.z = 0.2
-       // this.walls.scale(2,2,2)
+        // this.scene.add(this.walls.group)
+
+        /**
+         * Car
+         */
+        // this.scene.add(this.car.group)
+        // this.car.group.position.set(-15,2.4,20)
+        // this.car.group.scale.set(0.2, 0.2, 0.2)
 
         /**
          * Expo
@@ -110,19 +161,17 @@ class Museum {
         this.scene.add(this.expo.group)
         this.expo.group.position.set(-28,2.4,68)
 
+
         /**
          * Street
          */
         this.scene.add(this.street.group)
-        /**
-         * Iwalls
-         */
-        this.scene.add(this.iwalls.group)
+
 
         /**
          * Sky
          */
-       this.scene.add(this.cubes.group)
+    //    this.scene.add(this.cubes.env)
 
 
         /**
@@ -133,9 +182,10 @@ class Museum {
         /**
          * Renderer
          */
-		this.renderer = new THREE.WebGLRenderer( { antialias: true } );
+		this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true} );
 		this.renderer.setPixelRatio( window.devicePixelRatio );
-		this.renderer.setSize( window.innerWidth, window.innerHeight );
+        this.renderer.setSize( window.innerWidth, window.innerHeight );
+        this.renderer.setClearAlpha(0)
 		this.renderer.shadowMap.enabled = true;
         this.container.appendChild( this.renderer.domElement );
 
@@ -173,14 +223,15 @@ class Museum {
         if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
 
 		if (this.rym.player.move!=undefined){
-			if (this.rym.player.move.forward>0) this.rym.player.object.translateZ(dt*10);
+			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[3].children);
 			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
-        }
+		}
 
-        if (this.rym.player.cameras!=undefined && this.rym.player.cameras.active!=undefined){
+
+		if (this.rym.player.cameras!=undefined && this.rym.player.cameras.active!=undefined){
 			this.camera.position.lerp(this.rym.player.cameras.active.getWorldPosition(new THREE.Vector3()), this.cameraFade);
 			const pos = this.rym.player.object.position.clone();
-			pos.y += 60;
+			pos.y += 6;
 			this.camera.lookAt(pos);
 		}
 
