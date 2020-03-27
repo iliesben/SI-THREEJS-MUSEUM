@@ -17,7 +17,6 @@ import Clickcow from './javascript/Clickcow.js'
 import Monkey from './javascript/Monkey.js'
 import Clickmonkey from './javascript/Clickmonkey.js'
 import Video from './javascript/Video.js'
-import ClickMeBox from './javascript/ClickMeBox.js'
 import Song from './javascript/Song.js'
 import Canvas from './javascript/Canvas.js'
 
@@ -220,17 +219,14 @@ class Museum {
             if(this.hoverbox)
             {
                 this.scene.add(this.explication.group)
-                console.log("click1")
             }
             if(this.hoverboxcow)
             {
                 this.scene.add(this.cowboy.group)
-                console.log("click2")
             }
             if(this.hoverboxmonkey)
             {
                 this.scene.add(this.monkey.group)
-                console.log("click3")
             }
             if(this.hoverbox2)
             {
@@ -328,13 +324,13 @@ class Museum {
             this.hoverBoxCanvas = false
         }
 
-        intersects.length ? this.hoverbox = true : this.hoverbox = false
+        /*intersects.length ? this.hoverbox = true : this.hoverbox = false
 
         const intersects2 = this.raycaster.intersectObject(this.video.group, true)
         intersects2.length ?  this.hoverbox2 = true :  this.hoverbox2 = false
 
         const intersectsCanvas = this.raycaster.intersectObject(this.canvas.group, true)
-        intersectsCanvas.length ? this.hoverBoxCanvas = true : this.hoverBoxCanvas = false
+        intersectsCanvas.length ? this.hoverBoxCanvas = true : this.hoverBoxCanvas = false*/
 
         // Render
         this.renderer.render( this.scene, this.camera );
