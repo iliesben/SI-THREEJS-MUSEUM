@@ -18,6 +18,7 @@ export default class songs
         this.audio.currentTime = 0
         this.audio.volume = 0.2
         this.audio.play()
+        this.audio.loop = true
 
     }
     speakerAudio(_sence, _camera, witch)

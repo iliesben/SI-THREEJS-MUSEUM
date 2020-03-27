@@ -15,14 +15,14 @@ export default class Rym
 
         this.init()
 
-        // const $buttons = document.querySelector(".camera-btn")
-        // $buttons.addEventListener('click', () => this.changeCamera())
+        const $buttons = document.querySelector(".camera-btn")
+        $buttons.addEventListener('click', () => this.changeCamera())
 
         this.image = new Image()
         this.image.src = sceneImage
 
-        // $buttons.appendChild(this.image)
-        // this.image.classList.add('camera-btn')
+        $buttons.appendChild(this.image)
+        this.image.classList.add('camera-btn')
     }
     init(){
 
