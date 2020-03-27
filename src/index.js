@@ -52,6 +52,7 @@ class Museum {
         // this.clickbox2 = new Clickmetwo()
         this.hoverbox = false
         this.hoverbox2 = false
+        this.hoverBoxCanvas = false
         this.clickresult = new Clickresult()
 
 
@@ -124,38 +125,38 @@ class Museum {
          * WallsCollions
          */
 
-        this.scene.add(this.wallsCollions.environment)
+        // this.scene.add(this.wallsCollions.environment)
 
 
         /**
          * Car
          */
-        this.scene.add(this.car.group)
-        this.car.group.position.set(-15,2.4,20)
-        this.car.group.scale.set(0.2, 0.2, 0.2)
+        // this.scene.add(this.car.group)
+        // this.car.group.position.set(-15,2.4,20)
+        // this.car.group.scale.set(0.2, 0.2, 0.2)
 
         /**
          * Expo
          */
-        this.scene.add(this.expo.group)
-        this.expo.group.position.set(-28,2.4,68)
+        // this.scene.add(this.expo.group)
+        // this.expo.group.position.set(-28,2.4,68)
 
 
         /**
          * Street
          */
-        this.scene.add(this.street.group)
+        // this.scene.add(this.street.group)
 
 
          /**
          * walltest
          */
-        this.scene.add(this.walltest.group)
+        // this.scene.add(this.walltest.group)
 
         /**
          * Sky
          */
-        this.scene.add(this.sky.group)
+        // this.scene.add(this.sky.group)
 
         /**
          * Rym
@@ -165,7 +166,7 @@ class Museum {
         /**
          * Gallery
          */
-        this.scene.add(this.gallery.group)
+        // this.scene.add(this.gallery.group)
 
         /**
          * Video
@@ -189,7 +190,7 @@ class Museum {
          */
         const _sence = this.scene
         const _camera = this.camera
-        this.songMuseum.speakerAudio(_sence, _camera, 'museum')
+        // this.songMuseum.speakerAudio(_sence, _camera, 'museum')
         // this.songStreet.speakerAudio(_sence, _camera, 'street')
 
         /**
@@ -220,19 +221,23 @@ class Museum {
             {
                 console.log('click sur la box')
                 this.scene.add(this.clickresult.group)
-
-
             }
             if(this.hoverbox2)
             {
                 this.video.soundPlay()
+            }
+            if (this.hoverBoxCanvas)
+            {
+                this.canvas.creatCanvas()
+                if(this.canvas.load === true)
+                {
+                    this.canvas.cursourMove()
+                    console.log();
 
+                }
             }
         })
-
-
-    }
-
+  }
     /**
      * Resize
      */
@@ -285,6 +290,15 @@ class Museum {
         else
         {
             this.hoverbox2 = false
+        }
+        const intersectsCanvas = this.raycaster.intersectObject(this.canvas.group, true)
+        if(intersectsCanvas.length)
+        {
+            this.hoverBoxCanvas = true
+        }
+        else
+        {
+            this.hoverBoxCanvas = false
         }
 
 

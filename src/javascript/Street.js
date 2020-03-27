@@ -9,6 +9,7 @@ console.log(displacementSource);
 /**
  * Textures
  */
+
 const textureLoader = new THREE.TextureLoader()
 const normalTexture = textureLoader.load(normalSource)
 const colorTexture = textureLoader.load(colorSource)

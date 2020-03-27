@@ -18,7 +18,7 @@ export default class Video
         videoTexture.magFilter = THREE.LinearFilter;
         videoTexture.format = THREE.RGBFormat;
         this.videoTest.autoplay = true;
-        // this.videoTest.muted = true;
+        this.videoTest.muted = true;
         this.videoTest.loop
 
         // Formé géométrique où est la vidéo
@@ -28,7 +28,7 @@ export default class Video
             normalMap: videoTexture
             })
         )
-         planeVideo.position.set(-84.5,8.5,58)
+         planeVideo.position.set(-81.5,8.5,58)
          this.group.add(planeVideo)
          this.buttonSound()
     }
@@ -53,7 +53,5 @@ export default class Video
     }
     soundPlay(){
         this.videoTest.muted = false;
-        console.log('kiiko');
-
     }
 }
