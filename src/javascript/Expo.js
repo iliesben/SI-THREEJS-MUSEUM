@@ -21,7 +21,7 @@ export default class Expo
             (_gltf) =>
             {
 
-                this.object = _gltf.scene.children[3]
+                this.object = _gltf.scene.children[2]
                 this.object.scale.set(0.1,0.1,0.1)
                 this.group.add(this.object)
                 console.log(_gltf)
