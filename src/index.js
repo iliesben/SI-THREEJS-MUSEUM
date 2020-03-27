@@ -18,27 +18,29 @@ import Canvas from './javascript/Canvas.js'
 
 class Museum {
     constructor(){
-        this.textureLoader = new THREE.TextureLoader()
-        this.gallery = new Gallery()
-        this.camera
 		this.scene
+        this.camera
         this.renderer
-        this.click = new THREE.Group()
         this.clock = new THREE.Clock()
-        this.street = new Street()
-        this.wallsCollions = new WallsCollions()
-        this.car = new Car()
-        this.street = new Street()
+
+        this.light = new Light()
         this.rym = new Rym()
         this.expo = new Expo()
+        this.car = new Car()
+        this.street = new Street()
         this.walls = new walls()
-        this.cursor = {}
+        this.gallery = new Gallery()
+        this.street = new Street()
         this.sky = new Sky()
-        this.light = new Light()
-        this.cameraFade = 0.05;
+
+
         this.sizes = {}
+        this.cursor = {}
+        this.wallsCollions = new WallsCollions()
+        this.click = new THREE.Group()
         this.raycaster = new THREE.Raycaster()
         this.clickMeBox = new ClickMeBox()
+        this.explication = new Explication()
         this.songMuseum = new Song()
         this.songStreet = new Song()
 
@@ -47,7 +49,6 @@ class Museum {
         this.hoverbox = false
         this.hoverbox2 = false
         this.hoverBoxCanvas = false
-        this.explication = new Explication()
 
 
         this.container = document.createElement( 'div' );
@@ -100,7 +101,7 @@ class Museum {
         /**
          * Camera
          */
-        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 2000 );
+        this.camera = new THREE.PerspectiveCamera( 75, this.sizes.width / this.sizes.height, 0.1, 1000 );
 
         /**
          * Scene
@@ -244,7 +245,7 @@ class Museum {
 
 
 		if (this.rym.player.cameras!=undefined && this.rym.player.cameras.active!=undefined){
-			this.camera.position.lerp(this.rym.player.cameras.active.getWorldPosition(new THREE.Vector3()), this.cameraFade)
+			this.camera.position.lerp(this.rym.player.cameras.active.getWorldPosition(new THREE.Vector3()), 0.05)
 			const pos = this.rym.player.object.position.clone()
 			pos.y += 6
 			this.camera.lookAt(pos)
