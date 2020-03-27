@@ -1,7 +1,7 @@
 
 import * as THREE from 'three'
 import videoSource from '../assets/video.mp4';
-import playPauseSource from '../images/scene/clickMe.jpg'
+import playPauseSource from '../images/scene/playPause.jpg'
 
 export default class Video
 {
@@ -26,7 +26,7 @@ export default class Video
             normalMap: videoTexture
             })
         )
-         planeVideo.position.set(-83,8.5,58)
+         planeVideo.position.set(-83,8.45,58)
          this.group.add(planeVideo)
          this.buttonSound()
     }
@@ -40,7 +40,7 @@ export default class Video
         })
         const boxGeometry2 = new THREE.BoxGeometry( 1, 1, 1)
         const clickbox = new THREE.Mesh(boxGeometry2,planeMaterial2)
-        clickbox.position.set(-92,10,65)
+        clickbox.position.set(-91.5,10,65)
         this.group.add(clickbox)
     }
     soundPlay(){

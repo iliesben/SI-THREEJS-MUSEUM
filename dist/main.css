@@ -12,6 +12,52 @@ body {
   height: 100%;
   overflow: hidden;
 }
+.firstPage {
+  background-image: url(images/b3605c4985be73c230916c3be0e0eb91.jpg);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  line-height: 2.5;
+  padding: 10vw 2em;
+  text-align: right;
+  font-family: "Helvetica", "Arial", sans-serif;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 7;
+  pointer-events: none;
+}
+.firstPage h1 {
+  color: #35547b;
+  font-size: 2em;
+  font-weight: 500;
+}
+.firstPage .text {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+}
+.firstPage .text h3 {
+  color: #fff;
+  width: 25%;
+  text-align: justify;
+  font-size: 1em;
+  line-height: 2em;
+}
+.firstPage a {
+  border: 1px solid #35547b;
+  border-radius: 290486px;
+  color: #fff;
+  font-size: 0.6em;
+  letter-spacing: 0.2em;
+  padding: 2em 4em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: none 200ms ease-out;
+  transition-property: color, background;
+  cursor: pointer;
+  pointer-events: auto;
+}
 canvas {
   position: absolute;
   top: 0;

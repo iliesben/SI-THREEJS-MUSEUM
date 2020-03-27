@@ -1,16 +1,25 @@
 import * as THREE from 'three'
 import gallerieSource from '../assets/gallerie.mp3'
+import rueSource from '../assets/rue.mp3'
+console.log(rueSource);
+
 
 
 export default class songs
 {
     constructor()
     {
-        this.load = gallerieSource
-        // this.audioPlayer()
-        // this.play()
-    }
+        this.loads = [gallerieSource , rueSource]
+        this.audio = new Audio(rueSource)
 
+    }
+    play()
+    {
+        this.audio.currentTime = 0
+        this.audio.volume = 0.2
+        this.audio.play()
+
+    }
     speakerAudio(_sence, _camera, witch)
     {
         const geometryAudio = new THREE.BoxBufferGeometry( 5, 2, 5 )
