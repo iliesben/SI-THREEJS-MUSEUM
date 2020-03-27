@@ -26,14 +26,14 @@ export default class Preloader{
             const loaderDiv = document.createElement("div");
             loaderDiv.style.width= '500px';
             loaderDiv.style.height= '500px';
-            loaderDiv.style.border = '15px groove #7e57c2';
+            loaderDiv.style.border = '15px groove #FCF204';
             loaderDiv.style.borderRadius = '50%';
             loaderDiv.style.transform = 'rotate(360deg)';
             loaderDiv.style.transition = 'all 1s ease';
             loaderDiv.style.animation = 'loader-1-inner 1s ease-out alternate infinite';
             this.domElement.appendChild(loaderDiv);
             const loaderLine = document.createElement("div");
-            loaderLine.style.border = '150px ridge #9575cd';
+            loaderLine.style.border = '150px ridge #15617c';
             loaderLine.style.borderRadius = '50%';
             loaderLine.style.width = '480px';
             loaderLine.style.height = '480px';
@@ -68,8 +68,11 @@ export default class Preloader{
         const loader = this
 		function onprogress(delta){
             const progress = delta;
-            if( isNaN(progress) ) loader.progressPourcentage.textContent = '0 %'
+            if( progress == isNaN ) loader.progressPourcentage.textContent = '0 %'
             loader.progressPourcentage.textContent = `${Math.floor(progress*100)} %`
+            if (delta >= 1){
+                loader.progressPourcentage.textContent = `100 %`
+            }
             loader.progressLine.style.transform = `scale(${Math.floor(progress)})`;
 		}
 	}

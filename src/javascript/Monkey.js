@@ -16,7 +16,6 @@ export default class Monkey
         const planeGeometry  = new THREE.PlaneGeometry(14,13.5);
         const planeMaterial  = new THREE.MeshStandardMaterial({
             map: colorTexture,
-            displacementScale: 0.4
         })
         const plane = new THREE.Mesh(planeGeometry,planeMaterial)
         plane.rotation.y = Math.PI *-0.5

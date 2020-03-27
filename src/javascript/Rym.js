@@ -68,7 +68,7 @@ export default class Rym
 
     addCameras(){
         const backView = new THREE.Object3D()
-        backView.position.set(0, 250, -200)
+        backView.position.set(0, 225, -125)
         backView.parent = this.player.object
         const frontView = new THREE.Object3D()
         frontView.position.set(0, 120, 220)

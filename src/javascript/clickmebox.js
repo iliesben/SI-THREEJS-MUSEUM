@@ -17,7 +17,6 @@ export default class ClickMeBox
         this.group = new THREE.Group()
         const planeMaterial  = new THREE.MeshBasicMaterial({
             map: colorTexture,
-            displacementScale: 0.4
         })
         const boxGeometry = new THREE.BoxGeometry( 2, 2, 2)
         const clickMeBox = new THREE.Mesh(boxGeometry,planeMaterial)

@@ -16,8 +16,7 @@ export default class Clickcow
     {
         this.group = new THREE.Group()
         const planeMaterial  = new THREE.MeshBasicMaterial({
-            map: colorTexture,
-            displacementScale: 0.4
+            map: colorTexture
         })
         const boxGeometry = new THREE.BoxGeometry( 1, 1, 1)
         const clickMeBox = new THREE.Mesh(boxGeometry,planeMaterial)
