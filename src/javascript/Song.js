@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import footStepsSource from '../assets/footSteps.mp3'
 import gallerieSource from '../assets/gallerie.mp3'
 
 
@@ -7,19 +6,11 @@ export default class songs
 {
     constructor()
     {
-        // this.element = $element
-
-        this.audio = new Audio(footStepsSource)
-
+        this.load = gallerieSource
         // this.audioPlayer()
         // this.play()
     }
 
-    play()
-    {
-            // this.audio.currentTime = 0
-            // this.audio.play()
-    }
     speakerAudio(_sence, _camera, witch)
     {
         const geometryAudio = new THREE.BoxBufferGeometry( 5, 2, 5 )
@@ -30,17 +21,12 @@ export default class songs
         speakerAudio.rotation.y = Math.PI  * 2
         _sence.add(speakerAudio)
 
-        /** Section of audio listener creation*/
         this.listener = new THREE.AudioListener()
-        // camera.add(listener)
+
         _camera.add(this.listener)
 
         this.sound = new THREE.PositionalAudio(this.listener)
 
-
-
-
-        /** Section of song parametre creation*/
         let songVolume = 2
         const parameterSong = () =>
         {
@@ -52,16 +38,12 @@ export default class songs
             this.sound.setLoop( true )
             speakerAudio.add(this.sound)
         }
-        /** Section of load song*/
+
         const audioLoader = new THREE.AudioLoader();
-        audioLoader.load( gallerieSource,
+        audioLoader.load( this.load,
         (buffer) => {
             this.sound.setBuffer(buffer)
             parameterSong()
         })
-        // setTimeout(() => {
-        //     const helper = new THREE.PositionalAudioHelper( this.sound );
-        //     this.sound.add( helper );
-        // },7000)
     }
 }

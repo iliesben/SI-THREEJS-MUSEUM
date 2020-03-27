@@ -17,10 +17,10 @@ export default class Canvas
             new THREE.CubeGeometry(12.2, 6.2, 0.8), this.planeCanvaseTexture
         )
         this.planeCanvase.position.set(-45.5,8.5,74.5)
-         this.group.add(this.planeCanvase)
-         this.buttonDraw()
+        this.group.add(this.planeCanvase)
+        this.buttonDraw()
 
-         this.load = drawSource
+        this.load = drawSource
     }
     buttonDraw()
     {
@@ -28,8 +28,6 @@ export default class Canvas
 
         const planeMaterial2  = new THREE.MeshBasicMaterial({
         map: colorTexture,
-        displacementScale: 0.4,
-        color : 'red'
         })
         const boxGeometry2 = new THREE.BoxGeometry( 1, 1, 1)
         const clickbox = new THREE.Mesh(boxGeometry2,planeMaterial2)

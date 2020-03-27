@@ -1,8 +1,7 @@
 
 import * as THREE from 'three'
 import videoSource from '../assets/video.mp4';
-import colorSource from '../images/scene/clickme.jpg'
-
+import playPauseSource from '../images/scene/clickMe.jpg'
 
 export default class Video
 {
@@ -10,41 +9,34 @@ export default class Video
     {
         this.group = new THREE.Group()
 
+        this.load = videoSource
         this.videoTest = document.createElement('video')
-        this.videoTest.src = videoSource
+        this.videoTest.src = this.load
         const videoTexture = new THREE.VideoTexture(this.videoTest)
-        videoTexture.needsUpdate = true;
-        videoTexture.minFilter = THREE.LinearFilter;
-        videoTexture.magFilter = THREE.LinearFilter;
-        videoTexture.format = THREE.RGBFormat;
-        this.videoTest.autoplay = true;
-        this.videoTest.muted = true;
-        this.videoTest.loop
-
+        videoTexture.needsUpdate = true
+        videoTexture.minFilter = THREE.LinearFilter
+        videoTexture.magFilter = THREE.LinearFilter
+        videoTexture.format = THREE.RGBFormat
+        this.videoTest.autoplay = false
+        this.isplaying = false
         // Formé géométrique où est la vidéo
         const planeVideo = new THREE.Mesh(
-            new THREE.CubeGeometry(12.2, 6.2, 0.2), // Cube
+            new THREE.CubeGeometry(15, 6.2, 0.2), // Cube
             new THREE.MeshNormalMaterial({      // Conserver ce matérial
             normalMap: videoTexture
             })
         )
-         planeVideo.position.set(-81.5,8.5,58)
+         planeVideo.position.set(-83,8.5,58)
          this.group.add(planeVideo)
          this.buttonSound()
     }
     buttonSound()
     {
-
-        /**
-         * Textures
-        //  */
         const textureLoader = new THREE.TextureLoader()
-        const colorTexture = textureLoader.load(colorSource)
+        const playPauseTexture = textureLoader.load(playPauseSource)
 
         const planeMaterial2  = new THREE.MeshBasicMaterial({
-        map: colorTexture,
-        displacementScale: 0.4,
-        color : 'red'
+            map: playPauseTexture,
         })
         const boxGeometry2 = new THREE.BoxGeometry( 1, 1, 1)
         const clickbox = new THREE.Mesh(boxGeometry2,planeMaterial2)
@@ -52,6 +44,17 @@ export default class Video
         this.group.add(clickbox)
     }
     soundPlay(){
-        this.videoTest.muted = false;
+        if ( this.isplaying === false)
+        {
+            this.videoTest.play()
+            this.videoTest.loop = true
+            this.isplaying  = true
+        }
+        else if( this.isplaying === true) {
+            this.videoTest.pause()
+            console.log('in stop');
+            this.isplaying = false
+        }
+
     }
 }

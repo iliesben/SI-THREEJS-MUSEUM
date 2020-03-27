@@ -1,6 +1,5 @@
 import './style/main.styl'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WallsCollions from './javascript/WallsCollions.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
@@ -18,7 +17,7 @@ import Clickcow from './javascript/Clickcow.js'
 import Monkey from './javascript/Monkey.js'
 import Clickmonkey from './javascript/Clickmonkey.js'
 import Video from './javascript/Video.js'
-import { TweenLite, TimelineLite } from 'gsap/all'
+import ClickMeBox from './javascript/ClickMeBox.js'
 import Song from './javascript/Song.js'
 import Canvas from './javascript/Canvas.js'
 
@@ -82,13 +81,12 @@ class Museum {
     }
 
     assets(){
-       // this.models = [ this.james.person];
-       this.models = [ this.clickMeBox.load , this.canvas.load, this.car.load, this.explication.load, this.expo.load, this.rym.person]
+       this.models = [  this.expo.load, this.rym.person , this.car.load, this.video.load ,this.songMuseum.load ,this.clickMeBox.load , this.canvas.load, this.explication.load]
        this.gallery.loads.forEach( model => this.options.assets.push(model))
+       this.rym.animations.forEach( model => this.options.assets.push(model))
        this.street.loads.forEach( model => this.options.assets.push(model))
        this.walls.loads.forEach( model => this.options.assets.push(model))
        this.models.forEach( model => this.options.assets.push(model))
-
     }
 
     init(){
@@ -105,7 +103,7 @@ class Museum {
         this.cursor.x = 0
         this.cursor.y = 0
 
-        window.addEventListener('mousemove', (_event) =>
+        window.addEventListener('mousemove', _event =>
         {
             this.cursor.x = _event.clientX / this.sizes.width - 0.5
             this.cursor.y = _event.clientY / this.sizes.height - 0.5
@@ -199,31 +197,24 @@ class Museum {
          */
         const _sence = this.scene
         const _camera = this.camera
-        // this.songMuseum.speakerAudio(_sence, _camera, 'museum')
-        // this.songStreet.speakerAudio(_sence, _camera, 'street')
+        this.songMuseum.speakerAudio(_sence, _camera, 'museum')
 
         /**
          * Renderer
          */
-		this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true} );
-		this.renderer.setPixelRatio( window.devicePixelRatio );
-        this.renderer.setSize( window.innerWidth, window.innerHeight );
+		this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true} )
+		this.renderer.setPixelRatio( window.devicePixelRatio )
+        this.renderer.setSize( window.innerWidth, window.innerHeight )
         this.renderer.setClearAlpha(0)
-		this.renderer.shadowMap.enabled = true;
-        this.container.appendChild( this.renderer.domElement );
+		this.renderer.shadowMap.enabled = true
+        this.container.appendChild( this.renderer.domElement )
 
-        /**
-         * cameraControls
-         */
-        this.cameraControls = new OrbitControls(this.camera, this.renderer.domElement)
-        this.cameraControls.zoomSpeed = 0.3
-        this.cameraControls.enableDamping = true
-
-        window.addEventListener( 'resize', () => { this.onWindowResize(); }, false );
+        window.addEventListener( 'resize', () => this.onWindowResize() , false );
 
         /**
          * Click on the box
          */
+
         document.addEventListener('click', () =>
         {
             if(this.hoverbox)
@@ -243,18 +234,18 @@ class Museum {
             }
             if(this.hoverbox2)
             {
+            /*if(this.hoverbox) this.scene.add(this.explication.group)
+            if(this.hoverbox2) {*/
                 this.video.soundPlay()
             }
+
             if (this.hoverBoxCanvas)
             {
                 this.canvas.creatCanvas()
-                if(this.canvas.load === true)
-                {
-                    this.canvas.cursourMove()
-                }
+                if(this.canvas.load === true) this.canvas.cursourMove()
             }
         })
-  }
+    }
     /**
      * Resize
      */
@@ -271,22 +262,22 @@ class Museum {
      */
     loop()
     {
-        const dt = this.clock.getDelta();
-        window.requestAnimationFrame( () => this.loop()  )
+        const dt = this.clock.getDelta()
+        window.requestAnimationFrame( () => this.loop() )
 
-        if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt);
+        if (this.rym.player.mixer!=undefined) this.rym.player.mixer.update(dt)
 
 		if (this.rym.player.move!=undefined){
-			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[1].children);
-			this.rym.player.object.rotateY(this.rym.player.move.turn*dt);
+			if (this.rym.player.move.forward!=0) this.rym.movePlayer(dt, this.scene.children[1].children)
+			this.rym.player.object.rotateY(this.rym.player.move.turn*dt)
 		}
 
 
 		if (this.rym.player.cameras!=undefined && this.rym.player.cameras.active!=undefined){
-			this.camera.position.lerp(this.rym.player.cameras.active.getWorldPosition(new THREE.Vector3()), this.cameraFade);
-			const pos = this.rym.player.object.position.clone();
-			pos.y += 6;
-			this.camera.lookAt(pos);
+			this.camera.position.lerp(this.rym.player.cameras.active.getWorldPosition(new THREE.Vector3()), this.cameraFade)
+			const pos = this.rym.player.object.position.clone()
+			pos.y += 6
+			this.camera.lookAt(pos)
         }
         const raycasterCursor = new THREE.Vector2(this.cursor.x * 2, - this.cursor.y * 2)
         this.raycaster.setFromCamera(raycasterCursor, this.camera)
@@ -294,7 +285,7 @@ class Museum {
         if(intersects.length)
         {
             this.hoverbox = true
-            
+
         }
         else
         {
@@ -337,14 +328,19 @@ class Museum {
             this.hoverBoxCanvas = false
         }
 
+        intersects.length ? this.hoverbox = true : this.hoverbox = false
 
+        const intersects2 = this.raycaster.intersectObject(this.video.group, true)
+        intersects2.length ?  this.hoverbox2 = true :  this.hoverbox2 = false
+
+        const intersectsCanvas = this.raycaster.intersectObject(this.canvas.group, true)
+        intersectsCanvas.length ? this.hoverBoxCanvas = true : this.hoverBoxCanvas = false
 
         // Render
         this.renderer.render( this.scene, this.camera );
     }
 
 }
-
 
 document.addEventListener("DOMContentLoaded", function(){
     const museum = new Museum();
