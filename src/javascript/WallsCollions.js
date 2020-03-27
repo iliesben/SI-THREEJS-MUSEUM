@@ -14,7 +14,7 @@ export default class WallsCollions
             visible: false
         })
         let compteur = 0
-        for (let i = 0; i <= 3; i++) {
+        for (let i = 0; i <= 4; i++) {
             const  plane = new THREE.Mesh(planeGeometry,planeMaterial)
             switch (compteur) {
                 case 0 :
@@ -35,6 +35,11 @@ export default class WallsCollions
                     plane.position.set(-15,0,-2)
                     plane.scale.z = 4
                     plane.scale.x = 4
+                break
+                case 4 :
+                    plane.position.set(-70,0,31)
+                    plane.scale.z = 1
+                    plane.scale.x = 0.2
                 break
             }
             compteur++
