@@ -11,6 +11,11 @@ import Gallery from './javascript/Gallery.js'
 import Sky from './javascript/Sky.js'
 import Light from './javascript/Light.js'
 import Explication from './javascript/Explication.js'
+import ClickMeBox from './javascript/ClickMeBox.js'
+import Cowboy from './javascript/Cowboy.js'
+import Clickcow from './javascript/Clickcow.js'
+import Monkey from './javascript/Monkey.js'
+import Clickmonkey from './javascript/Clickmonkey.js'
 import Video from './javascript/Video.js'
 import ClickMeBox from './javascript/ClickMeBox.js'
 import Song from './javascript/Song.js'
@@ -21,6 +26,10 @@ class Museum {
 		this.scene
         this.camera
         this.renderer
+
+        this.click = new THREE.Group()
+        this.clickcow = new Clickcow()
+        this.clickmonkey = new Clickmonkey()
         this.clock = new THREE.Clock()
 
         this.light = new Light()
@@ -47,9 +56,13 @@ class Museum {
         this.canvas = new Canvas()
         this.video = new Video()
         this.hoverbox = false
+        this.hoverboxcow = false
+        this.hoverboxmonkey = false
         this.hoverbox2 = false
         this.hoverBoxCanvas = false
-
+        this.explication = new Explication()
+        this.monkey = new Monkey()
+        this.cowboy = new Cowboy()
 
         this.container = document.createElement( 'div' );
         this.container.style.height = '100%';
@@ -178,6 +191,8 @@ class Museum {
          */
 
         this.scene.add(this.clickMeBox.group)
+        this.scene.add(this.clickmonkey.group)
+        this.scene.add(this.clickcow.group)
         // this.scene.add(this.clickbox2.group)
 
         /**
@@ -200,13 +215,30 @@ class Museum {
         window.addEventListener( 'resize', () => this.onWindowResize() , false );
 
         /**
-         * Click on duck
+         * Click on the box
          */
 
         document.addEventListener('click', () =>
         {
-            if(this.hoverbox) this.scene.add(this.explication.group)
-            if(this.hoverbox2) {
+            if(this.hoverbox)
+            {
+                this.scene.add(this.explication.group)
+                console.log("click1")
+            }
+            if(this.hoverboxcow)
+            {
+                this.scene.add(this.cowboy.group)
+                console.log("click2")
+            }
+            if(this.hoverboxmonkey)
+            {
+                this.scene.add(this.monkey.group)
+                console.log("click3")
+            }
+            if(this.hoverbox2)
+            {
+            /*if(this.hoverbox) this.scene.add(this.explication.group)
+            if(this.hoverbox2) {*/
                 this.video.soundPlay()
             }
 
@@ -253,6 +285,51 @@ class Museum {
         const raycasterCursor = new THREE.Vector2(this.cursor.x * 2, - this.cursor.y * 2)
         this.raycaster.setFromCamera(raycasterCursor, this.camera)
         const intersects = this.raycaster.intersectObject(this.clickMeBox.group, true)
+        if(intersects.length)
+        {
+            this.hoverbox = true
+
+        }
+        else
+        {
+            this.hoverbox = false
+        }
+        const intersectscow = this.raycaster.intersectObject(this.clickcow.group, true)
+        if(intersectscow.length)
+        {
+            this.hoverboxcow = true
+        }
+        else
+        {
+            this.hoverboxcow = false
+        }
+        const intersectsmonkey = this.raycaster.intersectObject(this.clickmonkey.group, true)
+        if(intersectsmonkey.length)
+        {
+            this.hoverboxmonkey = true
+        }
+        else
+        {
+            this.hoverboxmonkey  = false
+        }
+        const intersects2 = this.raycaster.intersectObject(this.video.group, true)
+        if(intersects2.length)
+        {
+            this.hoverbox2 = true
+        }
+        else
+        {
+            this.hoverbox2 = false
+        }
+        const intersectsCanvas = this.raycaster.intersectObject(this.canvas.group, true)
+        if(intersectsCanvas.length)
+        {
+            this.hoverBoxCanvas = true
+        }
+        else
+        {
+            this.hoverBoxCanvas = false
+        }
 
         intersects.length ? this.hoverbox = true : this.hoverbox = false
 

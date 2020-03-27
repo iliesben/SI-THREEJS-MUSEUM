@@ -10,7 +10,7 @@ const colorTexture = textureLoader.load(clickMeSource)
 
 
 
-export default class ClickMeBox
+export default class Clickmonkey
 {
     constructor()
     {
@@ -19,9 +19,9 @@ export default class ClickMeBox
             map: colorTexture,
             displacementScale: 0.4
         })
-        const boxGeometry = new THREE.BoxGeometry( 2, 2, 2)
+        const boxGeometry = new THREE.BoxGeometry( 1, 1, 1)
         const clickMeBox = new THREE.Mesh(boxGeometry,planeMaterial)
-        clickMeBox.position.set(-60, 10, 0)
+        clickMeBox.position.set(-54, 15, 67)
         this.group.add(clickMeBox)
 
         this.load = clickMeSource
