@@ -1,22 +1,20 @@
 import './style/main.styl'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import Cubes from './javascript/Cubes.js'
 import WallsCollions from './javascript/WallsCollions.js'
 import Street from './javascript/Street.js'
 import Preloader from './javascript/Preloader.js'
 import Car from './javascript/Car.js'
 import Expo from './javascript/Expo.js'
 import Rym from './javascript/Rym.js'
-import walltest from './javascript/walltest.js'
+import walls from './javascript/Walls.js'
 import Gallery from './javascript/Gallery.js'
 import Sky from './javascript/Sky.js'
 import Light from './javascript/Light.js'
-import Clickresult from './javascript/clickable.js'
+import Explication from './javascript/Explication.js'
 import Video from './javascript/Video.js'
 import { TweenLite, TimelineLite } from 'gsap/all'
-import Clickme from './javascript/clickmebox.js'
-import Clickmetwo from './javascript/clickmeboxtwo.js'
+import ClickMeBox from './javascript/ClickMeBox.js'
 import Song from './javascript/Song.js'
 import Canvas from './javascript/Canvas.js'
 
@@ -31,29 +29,27 @@ class Museum {
         this.clock = new THREE.Clock()
         this.street = new Street()
         this.wallsCollions = new WallsCollions()
-        this.cubes = new Cubes()
         this.car = new Car()
         this.street = new Street()
         this.rym = new Rym()
         this.expo = new Expo()
-        this.walltest = new walltest()
+        this.walls = new walls()
         this.cursor = {}
         this.sky = new Sky()
         this.light = new Light()
         this.cameraFade = 0.05;
         this.sizes = {}
         this.raycaster = new THREE.Raycaster()
-        this.clickbox = new Clickme()
+        this.clickMeBox = new ClickMeBox()
         this.songMuseum = new Song()
         this.songStreet = new Song()
 
         this.canvas = new Canvas()
         this.video = new Video()
-        // this.clickbox2 = new Clickmetwo()
         this.hoverbox = false
         this.hoverbox2 = false
         this.hoverBoxCanvas = false
-        this.clickresult = new Clickresult()
+        this.explication = new Explication()
 
 
         this.container = document.createElement( 'div' );
@@ -77,10 +73,11 @@ class Museum {
 
     assets(){
        // this.models = [ this.james.person];
-       this.models = [ this.rym.person,
-        this.car.gltf,
-        this.expo.gltf];
-       this.models.forEach( (model) => { this.options.assets.push(model)})
+       this.models = [ this.clickMeBox.load , this.canvas.load, this.car.load, this.explication.load, this.expo.load, this.rym.person]
+       this.gallery.loads.forEach( model => this.options.assets.push(model))
+       this.street.loads.forEach( model => this.options.assets.push(model))
+       this.walls.loads.forEach( model => this.options.assets.push(model))
+       this.models.forEach( model => this.options.assets.push(model))
 
     }
 
@@ -125,38 +122,38 @@ class Museum {
          * WallsCollions
          */
 
-        // this.scene.add(this.wallsCollions.environment)
+        this.scene.add(this.wallsCollions.environment)
 
 
         /**
          * Car
          */
-        // this.scene.add(this.car.group)
-        // this.car.group.position.set(-15,2.4,20)
-        // this.car.group.scale.set(0.2, 0.2, 0.2)
+        this.scene.add(this.car.group)
+        this.car.group.position.set(-15,2.4,20)
+        this.car.group.scale.set(0.2, 0.2, 0.2)
 
         /**
          * Expo
          */
-        // this.scene.add(this.expo.group)
-        // this.expo.group.position.set(-28,2.4,68)
+        this.scene.add(this.expo.group)
+        this.expo.group.position.set(-28,2.4,68)
 
 
         /**
          * Street
          */
-        // this.scene.add(this.street.group)
+        this.scene.add(this.street.group)
 
 
          /**
-         * walltest
+         * walls
          */
-        // this.scene.add(this.walltest.group)
+        this.scene.add(this.walls.group)
 
         /**
          * Sky
          */
-        // this.scene.add(this.sky.group)
+        this.scene.add(this.sky.group)
 
         /**
          * Rym
@@ -166,7 +163,7 @@ class Museum {
         /**
          * Gallery
          */
-        // this.scene.add(this.gallery.group)
+        this.scene.add(this.gallery.group)
 
         /**
          * Video
@@ -182,7 +179,7 @@ class Museum {
          * click box
          */
 
-        this.scene.add(this.clickbox.group)
+        this.scene.add(this.clickMeBox.group)
         // this.scene.add(this.clickbox2.group)
 
         /**
@@ -219,8 +216,7 @@ class Museum {
         {
             if(this.hoverbox)
             {
-                console.log('click sur la box')
-                this.scene.add(this.clickresult.group)
+                this.scene.add(this.explication.group)
             }
             if(this.hoverbox2)
             {
@@ -232,8 +228,6 @@ class Museum {
                 if(this.canvas.load === true)
                 {
                     this.canvas.cursourMove()
-                    console.log();
-
                 }
             }
         })
@@ -273,7 +267,7 @@ class Museum {
         }
         const raycasterCursor = new THREE.Vector2(this.cursor.x * 2, - this.cursor.y * 2)
         this.raycaster.setFromCamera(raycasterCursor, this.camera)
-        const intersects = this.raycaster.intersectObject(this.clickbox.group, true)
+        const intersects = this.raycaster.intersectObject(this.clickMeBox.group, true)
         if(intersects.length)
         {
             this.hoverbox = true

@@ -7,11 +7,11 @@ export default class Car
     constructor()
     {
         this.group = new THREE.Group()
-        this.gltf = carSource
+        this.load = carSource
+
         const gltfLoader = new GLTFLoader()
-        gltfLoader.load(
-            this.gltf,
-            (_gltf) =>
+        gltfLoader.load( this.load,
+            _gltf =>
             {
                 this.object = _gltf.scene.children[0]
                 this.group.add(this.object)

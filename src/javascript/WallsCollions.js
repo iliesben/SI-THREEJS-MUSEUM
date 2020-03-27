@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 
-
 export default class WallsCollions
 {
     constructor()
@@ -136,7 +135,6 @@ export default class WallsCollions
             }
             compteur++
             this.environment.add(museumColid)
-            console.log(museumColid);
         }
 
         const musemBench = new THREE.BoxGeometry( 5, 2, 2 )

@@ -4,8 +4,6 @@ import normalSource from '../images/street/normal.jpg'
 import ambientOcclusionSource from '../images/street/ambientOcclusion.jpg'
 import displacementSource from '../images/street/displacement.jpg'
 
-console.log(displacementSource);
-
 /**
  * Textures
  */
@@ -24,12 +22,12 @@ export default class Street
         this.group = new THREE.Group()
         const planeGeometry  = new THREE.PlaneGeometry( 30, 30 );
         const planeMaterial  = new THREE.MeshStandardMaterial({
-        map: colorTexture,
-        normalMap: normalTexture,
-        aoMap: ambientOcclusionTexture,
-        displacementMap: displacementTexture,
-        displacementScale: 0.4,
-        side : THREE.DoubleSide
+            map: colorTexture,
+            normalMap: normalTexture,
+            aoMap: ambientOcclusionTexture,
+            displacementMap: displacementTexture,
+            displacementScale: 0.4,
+            side : THREE.DoubleSide
         })
         let x = 150
         for (let i = 0; i < 9; i++) {
@@ -51,9 +49,12 @@ export default class Street
         plane3.rotation.x = Math.PI * 0.5
         plane3.position.set(90,2.5,45)
         this.group.add(plane3)
+
         const plane4 = new THREE.Mesh(planeGeometry,planeMaterial)
         plane4.rotation.x = Math.PI * 0.5
         plane4.position.set(-145,2.5,-15)
         this.group.add(plane4)
+
+        this.loads = [ colorSource, normalSource, ambientOcclusionSource, displacementSource,]
     }
 }

@@ -1,32 +1,31 @@
 import * as THREE from 'three'
-import GraffityPaint from '../images/expo/paint.jpg'
-import copBanksy from '../images/expo/cop.jpg'
-import monkeyBanksy from '../images/expo/monkey.jpg'
-import PortraitInvader from '../images/expo/Portrait.jpg'
-import Invader from '../images/expo/Invader.jpg'
-import Invader2 from '../images/expo/Invader2.jpg'
-import Invader3 from '../images/expo/Invader3.jpg'
-import Invader4 from '../images/expo/Invader4.jpg'
-import draw from '../images/expo/draw.jpg'
-import cowboy from '../images/expo/cowboy.jpg'
-import poesia from '../images/expo/poesia.jpg'
+import GraffityPaintSource from '../images/expo/paint.jpg'
+import copBanksySource from '../images/expo/cop.jpg'
+import monkeyBanksySource from '../images/expo/monkey.jpg'
+import PortraitInvaderSource from '../images/expo/Portrait.jpg'
+import InvaderSource from '../images/expo/Invader.jpg'
+import Invader2Source from '../images/expo/Invader2.jpg'
+import Invader3Source from '../images/expo/Invader3.jpg'
+import Invader4Source from '../images/expo/Invader4.jpg'
+import drawSource from '../images/expo/draw.jpg'
+import cowboySource from '../images/expo/cowboy.jpg'
+import poesiaSource from '../images/expo/poesia.jpg'
 
 
 const textureLoader = new THREE.TextureLoader()
-const paintOnWall = textureLoader.load(GraffityPaint)
-const paintCop = textureLoader.load(copBanksy)
-const paintMonkey = textureLoader.load(monkeyBanksy)
-const paintPortrait = textureLoader.load(PortraitInvader)
-const paintInvader = textureLoader.load(Invader)
-const paintInvader2 = textureLoader.load(Invader2)
-const paintInvader3 = textureLoader.load(Invader3)
-const paintInvader4 = textureLoader.load(Invader4)
-const paintdraw = textureLoader.load(draw)
-const paintcowboy = textureLoader.load(cowboy)
-const paintpoesia = textureLoader.load(poesia)
-const cursor = { x: 0, y: 0 }
+const paintOnWall = textureLoader.load(GraffityPaintSource)
+const paintCop = textureLoader.load(copBanksySource)
+const paintMonkey = textureLoader.load(monkeyBanksySource)
+const paintPortrait = textureLoader.load(PortraitInvaderSource)
+const paintInvader = textureLoader.load(InvaderSource)
+const paintInvader2 = textureLoader.load(Invader2Source)
+const paintInvader3 = textureLoader.load(Invader3Source)
+const paintInvader4 = textureLoader.load(Invader4Source)
+const paintdraw = textureLoader.load(drawSource)
+const paintcowboy = textureLoader.load(cowboySource)
+const paintpoesia = textureLoader.load(poesiaSource)
 
-class Gallery
+export default class Gallery
 {
     constructor()
     {
@@ -36,6 +35,8 @@ class Gallery
         const GallerieMaterial = new THREE.MeshStandardMaterial({
             map: paintOnWall
         })
+
+        this.loads = [ GraffityPaintSource, copBanksySource, monkeyBanksySource,            PortraitInvaderSource, InvaderSource, Invader2Source, Invader3Source, Invader4Source, drawSource, cowboySource, poesiaSource,]
          /**
          * Paint 1 entry
          */
@@ -197,35 +198,5 @@ class Gallery
         const drawMaterial = new THREE.MeshStandardMaterial({
             map: paintdraw
         })
-        /*const material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } )
-        const drawMesh = new THREE.Mesh(drawGeometry, drawMaterial)
-        const mesh = new THREE.Mesh(
-          new THREE.PlaneGeometry(canvas.width, canvas.height),
-          material
-        )
-        drawMesh.position.z = 74.3
-        drawMesh.position.x = -45
-        drawMesh.position.y = 7
-
-        this.group.add(drawMesh)
-        this.group.add(mesh)
-        drawMesh.scale.set(0.1, 0.1, 0.1)
-
-        /**
-         * Imported/statue
-         */
-
-         /*    const gltfLoader = new GLTFLoader()
-
-            gltfLoader.load( './models/statue/scene.gltf',(_gltf) =>
-            {
-                this.object = _gltf.scene.children[0]
-                this.group.add(this.object)
-                this.object.position.set(-86.5, 9, 67)
-                this.object.scale.set(1.5,1.5,1.5)
-                this.object.rotation.z = Math.PI + 0.20944
-            }
-        ) */}
+    }
 }
-
-export default Gallery

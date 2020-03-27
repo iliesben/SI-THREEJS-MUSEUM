@@ -6,8 +6,6 @@ import colorSource4 from '../images/street/top.jpg'
 import colorSource5 from '../images/street/right.jpg'
 import colorSource6 from '../images/street/murlambda.jpg'
 
-
-
 /**
  * Textures
  */
@@ -21,7 +19,7 @@ const colorTexture5 = textureLoader.load(colorSource5)
 const colorTexture6 = textureLoader.load(colorSource6)
 
 
-export default class Walltest
+export default class Walls
 {
     constructor()
     {
@@ -124,7 +122,7 @@ export default class Walltest
             c -= 30
             this.group.add(plane3)
         }
-        
+
         const planeGeometry4  = new THREE.PlaneGeometry(40, 20  );
         const planeMaterial4  = new THREE.MeshStandardMaterial({
         map: colorTexture5,
@@ -145,8 +143,8 @@ export default class Walltest
 
         const boxGeometry  = new THREE.BoxGeometry( 10, 1,3);
         const boxMaterial  = new THREE.MeshStandardMaterial({
-        map: colorTexture3,
-        displacementScale: 0.4
+            map: colorTexture3,
+            displacementScale: 0.4
         })
         let z = 120
         for (let i = 0; i < 26; i++) {
@@ -166,8 +164,8 @@ export default class Walltest
 
         const boxGeometry2  = new THREE.BoxGeometry( 10, 1, 2);
         const boxMaterial2  = new THREE.MeshStandardMaterial({
-        map: colorTexture3,
-        displacementScale: 0.4
+            map: colorTexture3,
+            displacementScale: 0.4
         })
         let a = 80
         for (let i = 0; i < 24; i++) {
@@ -185,5 +183,6 @@ export default class Walltest
             this.group.add(box4)
         }
 
+        this.loads = [ colorSource, colorSource2, colorSource3, colorSource4, colorSource5, colorSource6]
     }
 }

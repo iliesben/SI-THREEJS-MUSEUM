@@ -1,7 +1,7 @@
 
 import * as THREE from 'three'
 import videoSource from '../assets/video.mp4';
-import colorSource from '../images/expo/clickme.jpg'
+import colorSource from '../images/scene/clickme.jpg'
 
 
 export default class Video

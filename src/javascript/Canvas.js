@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import colorSource from '../images/expo/clickme.jpg'
+import drawSource from '../images/scene/draw.jpg'
 
 /**
  * Textures
@@ -12,7 +12,6 @@ export default class Canvas
     {
         this.group = new THREE.Group()
 
-        // Formé géométrique où est la vidéo
         this.planeCanvaseTexture = new THREE.MeshBasicMaterial({})
         this.planeCanvase = new THREE.Mesh(
             new THREE.CubeGeometry(12.2, 6.2, 0.8), this.planeCanvaseTexture
@@ -20,10 +19,12 @@ export default class Canvas
         this.planeCanvase.position.set(-45.5,8.5,74.5)
          this.group.add(this.planeCanvase)
          this.buttonDraw()
+
+         this.load = drawSource
     }
     buttonDraw()
     {
-        const colorTexture = textureLoader.load(colorSource)
+        const colorTexture = textureLoader.load(drawSource)
 
         const planeMaterial2  = new THREE.MeshBasicMaterial({
         map: colorTexture,
@@ -46,7 +47,6 @@ export default class Canvas
         this.load = true
     }
     cursourMove(){
-        const color = "#000000"
         this.context.lineJoin = 'round';
         this.context.lineCap = 'round';
         this.context.lineWidth = 100;
@@ -56,8 +56,8 @@ export default class Canvas
         let hue = 0;
         let isDrawing = false;
 
-        const draw = (e) => {
-            if (!isDrawing) return; // stop the fn from running when they are not moused down
+        const draw = e => { // The boss
+            if (!isDrawing) return;
             this.context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
             this.context.beginPath();
             // start from
@@ -75,11 +75,8 @@ export default class Canvas
                 direction = !direction;
             }
 
-            if(direction) {
-                this.context.lineWidth++;
-            } else {
-                this.context.lineWidth--;
-            }
+            if(direction) this.context.lineWidth++;
+            else this.context.lineWidth--
         }
 
         this.canvas.addEventListener('mousedown', (e) => {

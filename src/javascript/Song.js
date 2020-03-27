@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import footStepsSource from '../assets/footSteps.mp3'
 import gallerieSource from '../assets/gallerie.mp3'
 
-console.log(footStepsSource);
 
 export default class songs
 {
@@ -24,7 +23,7 @@ export default class songs
     speakerAudio(_sence, _camera, witch)
     {
         const geometryAudio = new THREE.BoxBufferGeometry( 5, 2, 5 )
-        const materialAudio = new THREE.MeshBasicMaterial( { color : 'red' } )
+        const materialAudio = new THREE.MeshBasicMaterial( { visible : false } )
         const speakerAudio  = new THREE.Mesh(geometryAudio ,materialAudio)
         if (witch === 'museum') speakerAudio.position.set(-64.5  , 40 , 35)
 
