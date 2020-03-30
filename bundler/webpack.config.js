@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 
 module.exports = {
-//   devtool: 'source-map',
+  devtool: 'source-map',
   entry: path.resolve(__dirname, '../src/index.js'),
   output:
   {

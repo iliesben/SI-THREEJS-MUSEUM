@@ -96,7 +96,6 @@ class Museum {
     init(){
 
         const firstPage = document.querySelector('.firstPage')
-        console.log(firstPage)
 
         const buttonExperience = firstPage.querySelector('.buttonExperience-js')
         buttonExperience.addEventListener('click', () =>
@@ -142,7 +141,7 @@ class Museum {
          * WallsCollions
          */
 
-        // this.scene.add(this.wallsCollions.environment)
+        this.scene.add(this.wallsCollions.environment)
 
 
         /**
@@ -202,7 +201,6 @@ class Museum {
         this.scene.add(this.clickMeBox.group)
         this.scene.add(this.clickmonkey.group)
         this.scene.add(this.clickcow.group)
-        // this.scene.add(this.clickbox2.group)
 
         /**
          * SongInit

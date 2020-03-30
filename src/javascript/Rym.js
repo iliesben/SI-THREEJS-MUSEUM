@@ -217,15 +217,14 @@ class Control{
 	}
 
 	move(_event){
-        this.keysPressed[_event.code] = true
+        this.keysPressed[_event.key] = true
 
-        console.log('apuie');
         if (_event.code === 'KeyW' ) this.directionZ = 1
         if (_event.code === 'KeyS') this.directionZ = -1
         if (_event.code === 'KeyA') this.directionX = 1
         if (_event.code === 'KeyD') this.directionX = -1
 
-        if (this.keysPressed['ShiftRight']) this.run = true
+        if (this.keysPressed['Shift']) this.run = true
 
 		const forward = this.directionZ
         const turn = this.directionX
@@ -237,10 +236,10 @@ class Control{
 	stop(_event){
         if (_event.code === 'KeyW' || _event.code === 'KeyS') this.directionZ = 0
         if (_event.code === 'KeyA' || _event.code === 'KeyD') this.directionX = 0
-        if (_event.code === 'ShiftRight')
+        if (_event.key === 'Shift')
         {
             this.run = false
-            delete this.keysPressed[_event.code];
+            delete this.keysPressed[_event.key];
         }
         const forward = this.directionZ
 		const turn = this.directionX

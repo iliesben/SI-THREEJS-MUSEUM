@@ -37,7 +37,7 @@ export default class Preloader{
             loaderLine.style.borderRadius = '50%'
             loaderLine.style.width = '480px'
             loaderLine.style.height = '480px'
-            loaderLine.style.background= 'rgb(126, 87, 194)'
+            loaderLine.style.background= '#fcf202'
             loaderLine.style.transform= 'scale(0)'
             loaderLine.style.transition = 'all 0.4s ease-out'
             this.progressLine = loaderLine
