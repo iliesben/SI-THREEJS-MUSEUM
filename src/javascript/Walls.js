@@ -27,7 +27,7 @@ export default class Walls
          * walls
          */
         this.group = new THREE.Group()
-        const planeGeometry  = new THREE.PlaneGeometry( 80, 30 );
+        const planeGeometry  = new THREE.PlaneGeometry( 80, 30 )
         const planeMaterial  = new THREE.MeshStandardMaterial({
         map: colorTexture,
         displacementScale: 0.4,
@@ -42,7 +42,7 @@ export default class Walls
             x -= 30
             this.group.add(plane)
         }
-        const planeGeometry5  = new THREE.PlaneGeometry( 45, 20 );
+        const planeGeometry5  = new THREE.PlaneGeometry( 45, 20 )
         const planeMaterial5  = new THREE.MeshStandardMaterial({
         map: colorTexture6,
         displacementScale: 0.4,
@@ -92,7 +92,7 @@ export default class Walls
             this.group.add(plane9)
         }
 
-        const planeGeometry2  = new THREE.PlaneGeometry( 140, 25 );
+        const planeGeometry2  = new THREE.PlaneGeometry( 140, 25 )
         const planeMaterial2  = new THREE.MeshStandardMaterial({
         map: colorTexture2,
         displacementScale: 0.4
@@ -108,7 +108,7 @@ export default class Walls
             this.group.add(plane2)
         }
 
-        const planeGeometry3  = new THREE.PlaneGeometry(19.7, 7);
+        const planeGeometry3  = new THREE.PlaneGeometry(19.7, 7)
         const planeMaterial3  = new THREE.MeshStandardMaterial({
         map: colorTexture4,
         displacementScale: 0.4
@@ -123,7 +123,7 @@ export default class Walls
             this.group.add(plane3)
         }
 
-        const planeGeometry4  = new THREE.PlaneGeometry(40, 20  );
+        const planeGeometry4  = new THREE.PlaneGeometry(40, 20  )
         const planeMaterial4  = new THREE.MeshStandardMaterial({
         map: colorTexture5,
         displacementScale: 0.4
@@ -141,7 +141,7 @@ export default class Walls
             this.group.add(plane4)
         }
 
-        const boxGeometry  = new THREE.BoxGeometry( 10, 1,3);
+        const boxGeometry  = new THREE.BoxGeometry( 10, 1,3)
         const boxMaterial  = new THREE.MeshStandardMaterial({
             map: colorTexture3,
             displacementScale: 0.4
@@ -162,7 +162,7 @@ export default class Walls
             this.group.add(box3)
         }
 
-        const boxGeometry2  = new THREE.BoxGeometry( 10, 1, 2);
+        const boxGeometry2  = new THREE.BoxGeometry( 10, 1, 2)
         const boxMaterial2  = new THREE.MeshStandardMaterial({
             map: colorTexture3,
             displacementScale: 0.4

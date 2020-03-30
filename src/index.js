@@ -64,22 +64,22 @@ class Museum {
         this.monkey = new Monkey()
         this.cowboy = new Cowboy()
 
-        this.container = document.createElement( 'div' );
-        this.container.style.height = '100%';
-        document.body.appendChild( this.container );
+        this.container = document.createElement( 'div' )
+        this.container.style.height = '100%'
+        document.body.appendChild( this.container )
 
 		this.options = {
             assets:[
             ],
 			oncomplete: () => {
-                this.init();
+                this.init()
                 this.loop()
                 // this.action()
 			}
         }
 
         this.assets()
-        const preloader = new Preloader(this.options);
+        const preloader = new Preloader(this.options)
 
     }
 
@@ -96,7 +96,7 @@ class Museum {
     init(){
 
         const firstPage = document.querySelector('.firstPage')
-        console.log(firstPage);
+        console.log(firstPage)
 
         const buttonExperience = firstPage.querySelector('.buttonExperience-js')
         buttonExperience.addEventListener('click', () =>
@@ -123,14 +123,14 @@ class Museum {
         /**
          * Camera
          */
-        this.camera = new THREE.PerspectiveCamera( 75, this.sizes.width / this.sizes.height, 0.1, 1000 );
+        this.camera = new THREE.PerspectiveCamera( 75, this.sizes.width / this.sizes.height, 0.1, 1000 )
 
         /**
          * Scene
          */
-		this.scene = new THREE.Scene();
-		this.scene.background = new THREE.Color( 0xa0a0a0 );
-        this.scene.fog = new THREE.Fog( 0xa0a0a0, 15, 5000 );
+		this.scene = new THREE.Scene()
+		this.scene.background = new THREE.Color( 0xa0a0a0 )
+        this.scene.fog = new THREE.Fog( 0xa0a0a0, 15, 5000 )
 
         /**
          * Light
@@ -193,16 +193,15 @@ class Museum {
         /**
          * Canvas
          */
-
         this.scene.add(this.canvas.group)
+
         /**
          * click box
          */
-
         this.scene.add(this.clickMeBox.group)
         this.scene.add(this.clickmonkey.group)
         this.scene.add(this.clickcow.group)
-        // this.scene.add(this.clickbox2.group)
+        this.scene.add(this.clickbox2.group)
 
         /**
          * SongInit
@@ -222,7 +221,7 @@ class Museum {
 		this.renderer.shadowMap.enabled = true
         this.container.appendChild( this.renderer.domElement )
 
-        window.addEventListener( 'resize', () => this.onWindowResize() , false );
+        window.addEventListener( 'resize', () => this.onWindowResize() , false )
 
         /**
          * Click on the box
@@ -242,6 +241,7 @@ class Museum {
             }
         })
     }
+
     /**
      * Resize
      */
@@ -295,11 +295,10 @@ class Museum {
         intersectsCanvas.length ? this.hoverBoxCanvas = true : this.hoverBoxCanvas = false
 
         // Render
-        this.renderer.render( this.scene, this.camera );
+        this.renderer.render( this.scene, this.camera )
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-    const museum = new Museum();
-});
+    const museum = new Museum()
+})

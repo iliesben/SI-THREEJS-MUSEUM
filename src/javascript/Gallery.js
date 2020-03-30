@@ -61,7 +61,7 @@ export default class Gallery
 
         const banksyMesh = new THREE.Mesh(banksyGeometry, banksyMaterial)
         banksyMesh.position.z = 67
-        banksyMesh.rotation.y = Math.PI / 2;
+        banksyMesh.rotation.y = Math.PI / 2
         banksyMesh.position.x = -35.8
         banksyMesh.position.y = 9
 
@@ -76,7 +76,7 @@ export default class Gallery
 
         const monkeyMesh = new THREE.Mesh(monkeyGeometry, monkeyMaterial)
         monkeyMesh.position.z = 67
-        monkeyMesh.rotation.y = Math.PI / 2;
+        monkeyMesh.rotation.y = Math.PI / 2
         monkeyMesh.position.x = -53.4
         monkeyMesh.position.y = 9
 
@@ -167,7 +167,7 @@ export default class Gallery
 
         const cowboyMesh = new THREE.Mesh(cowboyGeometry, cowboyMaterial)
         cowboyMesh.position.z = 67
-        cowboyMesh.rotation.y = Math.PI / 2;
+        cowboyMesh.rotation.y = Math.PI / 2
         cowboyMesh.position.x = -75.3
         cowboyMesh.position.y = 9
 
@@ -182,7 +182,7 @@ export default class Gallery
 
         const poesiaMesh = new THREE.Mesh(poesiaGeometry, poesiaMaterial)
         poesiaMesh.position.z = 67
-        poesiaMesh.rotation.y = Math.PI / 2;
+        poesiaMesh.rotation.y = Math.PI / 2
         poesiaMesh.position.x = -92.7
         poesiaMesh.position.y = 9
 

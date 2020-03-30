@@ -5,7 +5,7 @@ export default class WallsCollions
     constructor()
     {
         this.environment = new THREE.Group()
-        this.environment.name = "environment";
+        this.environment.name = "environment"
 
         const planeGeometry  = new THREE.BoxGeometry( 30, 30 )
         const planeMaterial  = new THREE.MeshBasicMaterial({

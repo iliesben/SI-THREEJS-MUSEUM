@@ -13,7 +13,7 @@ export default class Explication
     constructor()
     {
         this.group = new THREE.Group()
-        const planeGeometry  = new THREE.PlaneGeometry(12,8);
+        const planeGeometry  = new THREE.PlaneGeometry(12,8)
         const planeMaterial  = new THREE.MeshStandardMaterial({
             map: colorTexture,
         })

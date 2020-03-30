@@ -45,47 +45,47 @@ export default class Canvas
         this.load = true
     }
     cursourMove(){
-        this.context.lineJoin = 'round';
-        this.context.lineCap = 'round';
-        this.context.lineWidth = 100;
-        let lastX = 0;
-        let lastY = 0;
-        let direction = true;
-        let hue = 0;
-        let isDrawing = false;
+        this.context.lineJoin = 'round'
+        this.context.lineCap = 'round'
+        this.context.lineWidth = 100
+        let lastX = 0
+        let lastY = 0
+        let direction = true
+        let hue = 0
+        let isDrawing = false
 
         const draw = e => { // The boss
-            if (!isDrawing) return;
-            this.context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-            this.context.beginPath();
+            if (!isDrawing) return
+            this.context.strokeStyle = `hsl(${hue}, 100%, 50%)`
+            this.context.beginPath()
             // start from
-            this.context.moveTo(lastX, lastY);
+            this.context.moveTo(lastX, lastY)
             // go to
-            this.context.lineTo(e.offsetX, e.offsetY);
-            this.context.stroke();
-            [lastX, lastY] = [e.offsetX, e.offsetY];
+            this.context.lineTo(e.offsetX, e.offsetY)
+            this.context.stroke()
+            [lastX, lastY] = [e.offsetX, e.offsetY]
 
-            hue++;
+            hue++
             if (hue >= 360) {
-                hue = 0;
+                hue = 0
             }
             if (this.context.lineWidth >= 100 || this.context.lineWidth <= 1) {
-                direction = !direction;
+                direction = !direction
             }
 
-            if(direction) this.context.lineWidth++;
+            if(direction) this.context.lineWidth++
             else this.context.lineWidth--
         }
 
         this.canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            [lastX, lastY] = [e.offsetX, e.offsetY];
+            isDrawing = true
+            [lastX, lastY] = [e.offsetX, e.offsetY]
         })
 
         this.canvas.color = "#333333"
-        this.canvas.addEventListener('mousemove', draw);
-        this.canvas.addEventListener('mouseup', () => isDrawing = false);
-        this.canvas.addEventListener('mouseout', () => isDrawing = false);
+        this.canvas.addEventListener('mousemove', draw)
+        this.canvas.addEventListener('mouseup', () => isDrawing = false)
+        this.canvas.addEventListener('mouseout', () => isDrawing = false)
 
         const publish = () =>
         {

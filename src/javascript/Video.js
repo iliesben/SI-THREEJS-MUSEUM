@@ -1,6 +1,6 @@
 
 import * as THREE from 'three'
-import videoSource from '../assets/video.mp4';
+import videoSource from '../assets/video.mp4'
 import playPauseSource from '../images/scene/playPause.jpg'
 
 export default class Video
@@ -52,7 +52,7 @@ export default class Video
         }
         else if( this.isplaying === true) {
             this.videoTest.pause()
-            console.log('in stop');
+            console.log('in stop')
             this.isplaying = false
         }
 

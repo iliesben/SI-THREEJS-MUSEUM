@@ -20,7 +20,7 @@ export default class Street
     constructor()
     {
         this.group = new THREE.Group()
-        const planeGeometry  = new THREE.PlaneGeometry( 30, 30 );
+        const planeGeometry  = new THREE.PlaneGeometry( 30, 30 )
         const planeMaterial  = new THREE.MeshStandardMaterial({
             map: colorTexture,
             normalMap: normalTexture,

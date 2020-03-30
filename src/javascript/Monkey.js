@@ -13,7 +13,7 @@ export default class Monkey
     constructor()
     {
         this.group = new THREE.Group()
-        const planeGeometry  = new THREE.PlaneGeometry(14,13.5);
+        const planeGeometry  = new THREE.PlaneGeometry(14,13.5)
         const planeMaterial  = new THREE.MeshStandardMaterial({
             map: colorTexture,
         })

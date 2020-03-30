@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import rymWalk from '../models/rym/girlWalking.fbx'
 import rymLookAround from '../models/rym/grilLookAround.fbx'
+import girlWalkingBack from '../models/rym/girlWalkingBack.fbx'
 import sceneImage from '../images/scene/cinema.png'
 
 export default class Rym
@@ -11,7 +12,7 @@ export default class Rym
         this.group = new THREE.Group()
         this.player = { }
         this.person = rymWalk
-        this.animations = [rymLookAround]
+        this.animations = [ girlWalkingBack, rymLookAround]
 
         this.init()
 
@@ -117,16 +118,20 @@ export default class Rym
 
     playerControl(forward, turn){
 
-		if (forward>0){
-            if (this.player.action!='walk') this.action = 'walk'
-            // console.log(this.player.object.position)
-
-		}else{
-            if (this.player.action === 'walk') this.action = rymLookAround
-		}
-		if (forward==0 && turn==0) delete this.player.move
+        if (forward==0 && turn==0) delete this.player.move
 		else{
 			this.player.move = { forward, turn }
+        }
+
+		if (forward > 0){
+            if (this.player.action!='walk') this.action = 'walk'
+        }
+        else if (forward < 0)
+        {
+            if (this.player.action!=girlWalkingBack) this.action = girlWalkingBack
+        }
+        else{
+            if (this.player.action === 'walk' || this.player.action === girlWalkingBack) this.action = rymLookAround
 		}
     }
 
@@ -149,7 +154,13 @@ export default class Rym
 			}
         }
 
-		if (!blocked && this.player.move.forward > 0) this.player.object.translateZ(dt*10)
+		if (!blocked){
+			if (this.player.move.forward>0){
+				this.player.object.translateZ(dt*10);
+			}else if (this.player.move.forward < 0){
+				this.player.object.translateZ(-dt*10);
+			}
+		}
     }
 
     addAnimations(fBXLoader){

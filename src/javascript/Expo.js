@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-import expoSource from '../models/expo/expo.glb';
+import expoSource from '../models/expo/expo.glb'
 
 export default class Expo
 {

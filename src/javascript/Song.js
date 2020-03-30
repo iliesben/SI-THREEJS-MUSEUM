@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import gallerieSource from '../assets/gallerie.mp3'
 import rueSource from '../assets/rue.mp3'
-console.log(rueSource);
+console.log(rueSource)
 
 
 
@@ -49,7 +49,7 @@ export default class songs
             speakerAudio.add(this.sound)
         }
 
-        const audioLoader = new THREE.AudioLoader();
+        const audioLoader = new THREE.AudioLoader()
         audioLoader.load( this.load,
         (buffer) => {
             this.sound.setBuffer(buffer)

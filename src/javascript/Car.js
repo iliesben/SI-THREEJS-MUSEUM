@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import carSource from '../models/car/car.glb';
+import carSource from '../models/car/car.glb'
 
 export default class Car
 {

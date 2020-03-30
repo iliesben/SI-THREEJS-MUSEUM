@@ -19,7 +19,7 @@ export default class Sky
             map: skyTexture,
             side: THREE.DoubleSide
         })
-        this.sky = new THREE.Mesh(skyGeo, skyMaterial);
+        this.sky = new THREE.Mesh(skyGeo, skyMaterial)
         this.sky.position.set(0,-15,15)
         this.group.add(this.sky)
     }
