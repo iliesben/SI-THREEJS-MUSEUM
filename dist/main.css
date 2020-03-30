@@ -58,6 +58,10 @@ body {
   cursor: pointer;
   pointer-events: auto;
 }
+.firstPage a:hover {
+  background: #35547b;
+  color: #fff;
+}
 canvas {
   position: absolute;
   top: 0;

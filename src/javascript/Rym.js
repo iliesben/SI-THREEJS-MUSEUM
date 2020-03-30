@@ -2,7 +2,8 @@ import * as THREE from 'three'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import rymWalk from '../models/rym/girlWalking.fbx'
 import rymLookAround from '../models/rym/grilLookAround.fbx'
-import girlWalkingBack from '../models/rym/girlWalkingBack.fbx'
+import rymlWalkingBack from '../models/rym/girlWalkingBack.fbx'
+import rymRunning from '../models/rym/girlRunning.fbx'
 import sceneImage from '../images/scene/cinema.png'
 
 export default class Rym
@@ -12,7 +13,7 @@ export default class Rym
         this.group = new THREE.Group()
         this.player = { }
         this.person = rymWalk
-        this.animations = [ girlWalkingBack, rymLookAround]
+        this.animations = [ rymlWalkingBack, rymLookAround, rymRunning]
 
         this.init()
 
@@ -116,22 +117,28 @@ export default class Rym
 		this.player.cameras.active = object
     }
 
-    playerControl(forward, turn){
+    playerControl(forward, turn, run){
 
         if (forward==0 && turn==0) delete this.player.move
 		else{
-			this.player.move = { forward, turn }
+            this.player.move = { forward, turn, run }
         }
 
-		if (forward > 0){
-            if (this.player.action!='walk') this.action = 'walk'
+		if (forward > 0 ){
+            if (run === true)
+            {
+                if (this.player.action!=rymRunning) this.action = rymRunning
+            }
+            else {
+                if (this.player.action!='walk') this.action = 'walk'
+            }
         }
         else if (forward < 0)
         {
-            if (this.player.action!=girlWalkingBack) this.action = girlWalkingBack
+            if (this.player.action!=rymlWalkingBack) this.action = rymlWalkingBack
         }
         else{
-            if (this.player.action === 'walk' || this.player.action === girlWalkingBack) this.action = rymLookAround
+            if (this.player.action === 'walk' || this.player.action === rymlWalkingBack || this.player.action === rymRunning ) this.action = rymLookAround
 		}
     }
 
@@ -155,10 +162,13 @@ export default class Rym
         }
 
 		if (!blocked){
-			if (this.player.move.forward>0){
-				this.player.object.translateZ(dt*10);
+			if (this.player.move.forward > 0){
+                if (this.player.move.run === true){
+                    this.player.object.translateZ(dt*20);
+                }
+                else this.player.object.translateZ(dt*8);
 			}else if (this.player.move.forward < 0){
-				this.player.object.translateZ(-dt*10);
+				this.player.object.translateZ(-dt*8);
 			}
 		}
     }
@@ -199,33 +209,44 @@ class Control{
         this.player = options.player
         this.directionZ = 0
         this.directionX = 0
+        this.run = false
+        this.keysPressed = {};
 
         document.addEventListener('keydown', _event => this.move(_event))
         document.addEventListener('keyup', _event => this.stop(_event))
 	}
 
 	move(_event){
+        this.keysPressed[_event.code] = true
 
-        if (_event.code === 'KeyW') this.directionZ = 1
+        console.log('apuie');
+        if (_event.code === 'KeyW' ) this.directionZ = 1
         if (_event.code === 'KeyS') this.directionZ = -1
         if (_event.code === 'KeyA') this.directionX = 1
         if (_event.code === 'KeyD') this.directionX = -1
 
+        if (this.keysPressed['ShiftRight']) this.run = true
+
 		const forward = this.directionZ
         const turn = this.directionX
+        const run = this.run
 
-		if (this.onMove!=undefined) this.onMove.call(this.player, forward, turn)
+		if (this.onMove!=undefined) this.onMove.call(this.player, forward, turn, run)
 	}
 
 	stop(_event){
-        // console.log(_event)
         if (_event.code === 'KeyW' || _event.code === 'KeyS') this.directionZ = 0
         if (_event.code === 'KeyA' || _event.code === 'KeyD') this.directionX = 0
-
+        if (_event.code === 'ShiftRight')
+        {
+            this.run = false
+            delete this.keysPressed[_event.code];
+        }
         const forward = this.directionZ
 		const turn = this.directionX
+        const run = this.run
 
-		this.onMove.call(this.player, forward, turn)
+		this.onMove.call(this.player, forward, turn, run)
 	}
 }
 

@@ -142,7 +142,7 @@ class Museum {
          * WallsCollions
          */
 
-        this.scene.add(this.wallsCollions.environment)
+        // this.scene.add(this.wallsCollions.environment)
 
 
         /**
@@ -193,15 +193,16 @@ class Museum {
         /**
          * Canvas
          */
-        this.scene.add(this.canvas.group)
 
+        this.scene.add(this.canvas.group)
         /**
          * click box
          */
+
         this.scene.add(this.clickMeBox.group)
         this.scene.add(this.clickmonkey.group)
         this.scene.add(this.clickcow.group)
-        this.scene.add(this.clickbox2.group)
+        // this.scene.add(this.clickbox2.group)
 
         /**
          * SongInit
