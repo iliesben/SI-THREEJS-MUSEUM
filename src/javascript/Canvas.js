@@ -99,7 +99,7 @@ export default class Canvas
             this.button.style.left = '85%'
             this.button.style.border = 'solid 2px red'
             this.button.style.padding = '0px 10px'
-            this.button.style.pointer = 'cursor'
+            this.button.style.cursor = 'pointer'
             document.body.appendChild(this.button)
 
             this.button.addEventListener('click', () =>

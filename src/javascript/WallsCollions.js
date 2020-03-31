@@ -9,9 +9,9 @@ export default class WallsCollions
 
         const planeGeometry  = new THREE.BoxGeometry( 30, 30 )
         const planeMaterial  = new THREE.MeshBasicMaterial({
-            // color: 0x248f24,
-            // side : THREE.DoubleSide
-            visible: false
+            color: 0x248f24,
+            side : THREE.DoubleSide
+            // visible: false
         })
         let compteur = 0
         for (let i = 0; i <= 4; i++) {

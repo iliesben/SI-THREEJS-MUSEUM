@@ -21,12 +21,12 @@ export default class songs
         this.audio.loop = true
 
     }
-    speakerAudio(_sence, _camera, witch)
+    speakerAudio(_sence, _camera)
     {
         const geometryAudio = new THREE.BoxBufferGeometry( 5, 2, 5 )
         const materialAudio = new THREE.MeshBasicMaterial( { visible : false } )
         const speakerAudio  = new THREE.Mesh(geometryAudio ,materialAudio)
-        if (witch === 'museum') speakerAudio.position.set(-64.5  , 40 , 35)
+        speakerAudio.position.set(-64.5  , 40 , 35)
 
         speakerAudio.rotation.y = Math.PI  * 2
         _sence.add(speakerAudio)

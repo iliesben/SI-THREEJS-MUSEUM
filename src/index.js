@@ -192,12 +192,11 @@ class Museum {
         /**
          * Canvas
          */
-
         this.scene.add(this.canvas.group)
+
         /**
          * click box
          */
-
         this.scene.add(this.clickMeBox.group)
         this.scene.add(this.clickmonkey.group)
         this.scene.add(this.clickcow.group)
@@ -207,7 +206,7 @@ class Museum {
          */
         const _sence = this.scene
         const _camera = this.camera
-        this.songMuseum.speakerAudio(_sence, _camera, 'museum')
+        this.songMuseum.speakerAudio(_sence, _camera)
         this.songMuseum.play()
 
         /**

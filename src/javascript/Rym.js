@@ -4,6 +4,7 @@ import rymWalk from '../models/rym/girlWalking.fbx'
 import rymLookAround from '../models/rym/grilLookAround.fbx'
 import rymlWalkingBack from '../models/rym/girlWalkingBack.fbx'
 import rymRunning from '../models/rym/girlRunning.fbx'
+import rymDance from '../models/rym/dance.fbx'
 import sceneImage from '../images/scene/cinema.png'
 
 export default class Rym
@@ -13,7 +14,7 @@ export default class Rym
         this.group = new THREE.Group()
         this.player = { }
         this.person = rymWalk
-        this.animations = [ rymlWalkingBack, rymLookAround, rymRunning]
+        this.animations = [ rymlWalkingBack, rymLookAround, rymRunning, rymDance]
 
         this.init()
 
@@ -62,6 +63,7 @@ export default class Rym
             onMove: this.playerControl,
             player: this
         })
+        this.easterEgg()
     }
 
     /**
@@ -120,9 +122,7 @@ export default class Rym
     playerControl(forward, turn, run){
 
         if (forward==0 && turn==0) delete this.player.move
-		else{
-            this.player.move = { forward, turn, run }
-        }
+		else this.player.move = { forward, turn, run }
 
 		if (forward > 0 ){
             if (run === true)
@@ -139,7 +139,7 @@ export default class Rym
         }
         else{
             if (this.player.action === 'walk' || this.player.action === rymlWalkingBack || this.player.action === rymRunning ) this.action = rymLookAround
-		}
+        }
     }
 
 
@@ -147,7 +147,8 @@ export default class Rym
 		const pos = this.player.object.position.clone()
         pos.y += 2
         var vector = new THREE.Vector3()
-		let dir = this.player.object.getWorldDirection(vector)
+        let dir = this.player.object.getWorldDirection(vector)
+        if (this.player.move.forward < 0) dir.negate()
 		let raycaster = new THREE.Raycaster(pos, dir)
         let blocked = false
 
@@ -164,13 +165,25 @@ export default class Rym
 		if (!blocked){
 			if (this.player.move.forward > 0){
                 if (this.player.move.run === true){
-                    this.player.object.translateZ(dt*20);
+                    this.player.object.translateZ(dt*20)
                 }
-                else this.player.object.translateZ(dt*8);
+                else this.player.object.translateZ(dt*8)
 			}else if (this.player.move.forward < 0){
-				this.player.object.translateZ(-dt*8);
+				this.player.object.translateZ(-dt*8)
 			}
-		}
+        }
+    }
+
+    easterEgg()
+    {
+        const pressed = []
+        const secretCode = 'bruno'
+
+        window.addEventListener('keyup', (_event) => {
+        pressed.push(_event.key)
+        pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length)
+        if (pressed.join('').includes(secretCode) && this.player.action != 'walk' && this.player.action!=rymlWalkingBack) this.action = rymDance
+        })
     }
 
     addAnimations(fBXLoader){
@@ -188,18 +201,22 @@ export default class Rym
     }
 
 	set action(name){
+        if (this.player.action === name) return
         const anim = this.player[name]
-
 		const action = this.player.mixer.clipAction( anim,  this.player.root )
-        action.time = 0
+
 		this.player.mixer.stopAllAction()
-
-		this.player.action = name
-
-		action.fadeIn(0.5)
-		action.play()
+        this.player.action = name
+        action.time = 0
+        if ( this.player.action === rymRunning ) action.fadeIn(0.1)
+        else action.fadeIn(0.5)
+        if ( this.player.action === rymDance )
+        {
+            action.loop = THREE.LoopOnce
+            this.player.mixer.addEventListener('finished', () => this.action = rymLookAround)
+        }
+        action.play()
     }
-
 }
 
 class Control{
@@ -210,7 +227,7 @@ class Control{
         this.directionZ = 0
         this.directionX = 0
         this.run = false
-        this.keysPressed = {};
+        this.keysPressed = {}
 
         document.addEventListener('keydown', _event => this.move(_event))
         document.addEventListener('keyup', _event => this.stop(_event))
@@ -223,7 +240,6 @@ class Control{
         if (_event.code === 'KeyS') this.directionZ = -1
         if (_event.code === 'KeyA') this.directionX = 1
         if (_event.code === 'KeyD') this.directionX = -1
-
         if (this.keysPressed['Shift']) this.run = true
 
 		const forward = this.directionZ
@@ -239,7 +255,7 @@ class Control{
         if (_event.key === 'Shift')
         {
             this.run = false
-            delete this.keysPressed[_event.key];
+            delete this.keysPressed[_event.key]
         }
         const forward = this.directionZ
 		const turn = this.directionX
